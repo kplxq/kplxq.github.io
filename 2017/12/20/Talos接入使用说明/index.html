@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://kplxq.github.io/2017/12/20/Talos接入使用说明/index.html">
 <meta property="og:site_name" content="开普勒鑫球">
 <meta property="og:description" content="运行环境开发环境开发环境需要：  JDK1.7+ Maven3.1+  依赖引入12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;com.kxjf.talos&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;talos-interceptor&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;1.0.0&amp;lt;/version&amp;gt">
-<meta property="og:updated_time" content="2017-12-21T08:27:46.232Z">
+<meta property="og:updated_time" content="2017-12-21T09:14:33.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Talos接入使用说明">
 <meta name="twitter:description" content="运行环境开发环境开发环境需要：  JDK1.7+ Maven3.1+  依赖引入12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;com.kxjf.talos&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;talos-interceptor&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;1.0.0&amp;lt;/version&amp;gt">
@@ -55,7 +55,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kplxq.github.io"></form>
@@ -92,7 +92,7 @@
 <li>Maven3.1+</li>
 </ul>
 <h3 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.kxjf.talos&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;talos-interceptor&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>这里对一些配置进行解释说明，范例移步<a href="">talos-sample</a></p>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>这里对一些配置进行解释说明，范例代码移步<a href="">talos-sample</a></p>
 <h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><h4 id="必选配置"><a href="#必选配置" class="headerlink" title="必选配置"></a>必选配置</h4><h5 id="Talos实例化"><a href="#Talos实例化" class="headerlink" title="Talos实例化"></a>Talos实例化</h5><p>Spring配置Talos实例，配置说明：<br>1、    serviceName：用于区分集群应用，需唯一，建议取机器host<br>2、    collector ：数据收集的实现方法，默认使用日志收集方式，需额外配置logback，系统目前提供这一种收集方式，可自行实现</p>
 <p>参考配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;talos&quot; class=&quot;com.kxd.talos.trace.core.Talos&quot;&gt;</span><br><span class="line">	&lt;constructor-arg type=&quot;String&quot; value=&quot;talos-sample&quot; /&gt;</span><br><span class="line">	&lt;constructor-arg type=&quot;float&quot; value=&quot;1.0f&quot; /&gt;</span><br><span class="line">	&lt;constructor-arg ref=&quot;loggingSpanCollector&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
@@ -125,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/20/Talos接入使用说明/" data-id="cjbg80a9h000310jkfol52abw" class="article-share-link">Teilen</a>
+      <a data-url="http://kplxq.github.io/2017/12/20/Talos接入使用说明/" data-id="cjbgaaltg0003qwjke4oz3nt0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -138,7 +138,7 @@
   
   
     <a href="/2017/12/15/Elasticsearch部署文档/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">Elasticsearch部署文档</div>
     </a>
   
@@ -175,7 +175,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
@@ -185,7 +185,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
