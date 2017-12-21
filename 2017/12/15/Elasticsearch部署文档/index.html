@@ -14,12 +14,12 @@
 <meta property="og:url" content="http://kplxq.github.io/2017/12/15/Elasticsearch部署文档/index.html">
 <meta property="og:site_name" content="开普勒鑫球">
 <meta property="og:description" content="机器列表   节点 建议host     Node1 es1   Node2 es2   Node3 es3    环境准备1、JDK1.7+ 节点部署官网有quick-start 注意：Elasticsearch 限制使用非root用户来进行以下操作，如创建用户es 1、下载Elasticsearch2.4.0的zip包2、解压elasticsearch至/usr/share路径3、修改配置文件">
-<meta property="og:image" content="http://kplxq.github.io/img/es1.png">
-<meta property="og:updated_time" content="2017-12-21T08:28:37.333Z">
+<meta property="og:image" content="http://kplxq.github.io/img/talos/es1.png">
+<meta property="og:updated_time" content="2017-12-21T10:25:51.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch部署文档">
 <meta name="twitter:description" content="机器列表   节点 建议host     Node1 es1   Node2 es2   Node3 es3    环境准备1、JDK1.7+ 节点部署官网有quick-start 注意：Elasticsearch 限制使用非root用户来进行以下操作，如创建用户es 1、下载Elasticsearch2.4.0的zip包2、解压elasticsearch至/usr/share路径3、修改配置文件">
-<meta name="twitter:image" content="http://kplxq.github.io/img/es1.png">
+<meta name="twitter:image" content="http://kplxq.github.io/img/talos/es1.png">
   
     <link rel="alternate" href="/atom.xml" title="开普勒鑫球" type="application/atom+xml">
   
@@ -57,7 +57,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kplxq.github.io"></form>
@@ -122,12 +122,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;node-1&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;es-talos&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;2.4.0&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;ce9f0c7394dee074091dd1bc4e9469251181fc55&quot;,</span><br><span class="line">    &quot;build_timestamp&quot; : &quot;2016-08-29T09:14:17Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;5.5.2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上1-6步骤在三个节点上操作完成，并都能看到启动成功的响应，则部署成功。</p>
 <h2 id="ES监控插件部署"><a href="#ES监控插件部署" class="headerlink" title="ES监控插件部署"></a>ES监控插件部署</h2><p>1、    如果在有网络的情况下可以直接执行<br>/usr/share/elasticsearch2.4.0/bin/plugin install mobz/elasticsearch-head<br>2、    如果服务器没有连网下载<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">elasticsearch-head</a><br>3、    可以通过web服务器打开，如将elasticsearch-head放到tomcat的里面，通过tomcat访问<br><a href="http://es1:8080/elasticsearch-head-master/index.html" target="_blank" rel="noopener">http://es1:8080/elasticsearch-head-master/index.html</a></p>
-<p>部署成功如图：<br><img src="/img/es1.png" alt="es-head"></p>
+<p>部署成功如图：<br><img src="/img/talos/es1.png" alt="es-head"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/15/Elasticsearch部署文档/" data-id="cjbgaalsu0000qwjkurk72nmw" class="article-share-link">Share</a>
+      <a data-url="http://kplxq.github.io/2017/12/15/Elasticsearch部署文档/" data-id="cjbgd11nd0000dgjkac3iffkk" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -139,7 +139,7 @@
 <nav id="article-nav">
   
     <a href="/2017/12/20/Talos接入使用说明/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
           Talos接入使用说明
@@ -149,7 +149,7 @@
   
   
     <a href="/2017/12/15/Kafka部署文档/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">Kafka部署文档</div>
     </a>
   
@@ -186,7 +186,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
@@ -196,7 +196,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         

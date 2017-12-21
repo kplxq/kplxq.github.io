@@ -53,7 +53,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kplxq.github.io"></form>
@@ -125,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/20/Talos接入使用说明/" data-id="cjbgaaltg0003qwjke4oz3nt0" class="article-share-link">Share</a>
+      <a data-url="http://kplxq.github.io/2017/12/20/Talos接入使用说明/" data-id="cjbgd11o00003dgjku4smpbxp" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -193,12 +193,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;node-1&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;es-talos&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;2.4.0&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;ce9f0c7394dee074091dd1bc4e9469251181fc55&quot;,</span><br><span class="line">    &quot;build_timestamp&quot; : &quot;2016-08-29T09:14:17Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;5.5.2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上1-6步骤在三个节点上操作完成，并都能看到启动成功的响应，则部署成功。</p>
 <h2 id="ES监控插件部署"><a href="#ES监控插件部署" class="headerlink" title="ES监控插件部署"></a>ES监控插件部署</h2><p>1、    如果在有网络的情况下可以直接执行<br>/usr/share/elasticsearch2.4.0/bin/plugin install mobz/elasticsearch-head<br>2、    如果服务器没有连网下载<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">elasticsearch-head</a><br>3、    可以通过web服务器打开，如将elasticsearch-head放到tomcat的里面，通过tomcat访问<br><a href="http://es1:8080/elasticsearch-head-master/index.html" target="_blank" rel="noopener">http://es1:8080/elasticsearch-head-master/index.html</a></p>
-<p>部署成功如图：<br><img src="/img/es1.png" alt="es-head"></p>
+<p>部署成功如图：<br><img src="/img/talos/es1.png" alt="es-head"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/15/Elasticsearch部署文档/" data-id="cjbgaalsu0000qwjkurk72nmw" class="article-share-link">Share</a>
+      <a data-url="http://kplxq.github.io/2017/12/15/Elasticsearch部署文档/" data-id="cjbgd11nd0000dgjkac3iffkk" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -254,7 +254,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="逻辑拓扑"><a href="#逻辑拓扑" class="headerlink" title="逻辑拓扑"></a>逻辑拓扑</h2><p><img src="/img/kafka-tuopu.png" alt="Kafka逻辑拓扑"></p>
+<h2 id="逻辑拓扑"><a href="#逻辑拓扑" class="headerlink" title="逻辑拓扑"></a>逻辑拓扑</h2><p><img src="/img/talos/kafka-tuopu.png" alt="Kafka逻辑拓扑"></p>
 <h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="组件下载"><a href="#组件下载" class="headerlink" title="组件下载"></a>组件下载</h3><p><a href="https://archive.apache.org/dist/kafka/0.10.0.1/kafka_2.10-0.10.0.1.tgz" target="_blank" rel="noopener">Download Kafka</a><br><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.10/" target="_blank" rel="noopener">Download Zookeeper</a></p>
 <p>下载链接若失效，请参考官网最新链接</p>
 <p><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a><br><a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper</a></p>
@@ -273,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/15/Kafka部署文档/" data-id="cjbgaalt30001qwjk7xpicog2" class="article-share-link">Share</a>
+      <a data-url="http://kplxq.github.io/2017/12/15/Kafka部署文档/" data-id="cjbgd11nm0001dgjkl5k4hirs" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -307,12 +307,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/img/jiagou1.png" alt="加载中……"><br><img src="/img/jiagou2.png" alt="加载中……"><br><img src="/img/jiagou3.png" alt="加载中……"><br><img src="/img/jiagou4.png" alt="加载中……"><br><img src="/img/jiagou5.png" alt="加载中……"><br><img src="/img/jiagou6.png" alt="加载中……"><br><img src="/img/jiagou7.png" alt="加载中……"><br><img src="/img/jiagou8.png" alt="加载中……"></p>
+        <p><img src="/img/talos/jiagou1.png" alt="加载中……"><br><img src="/img/talos/jiagou2.png" alt="加载中……"><br><img src="/img/talos/jiagou3.png" alt="加载中……"><br><img src="/img/talos/jiagou4.png" alt="加载中……"><br><img src="/img/talos/jiagou5.png" alt="加载中……"><br><img src="/img/talos/jiagou6.png" alt="加载中……"><br><img src="/img/talos/jiagou7.png" alt="加载中……"><br><img src="/img/talos/jiagou8.png" alt="加载中……"><br><img src="/img/talos/jiagou9.png" alt="加载中……"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/15/架构设计/" data-id="cjbgaaltq0004qwjk7frmrepj" class="article-share-link">Share</a>
+      <a data-url="http://kplxq.github.io/2017/12/15/架构设计/" data-id="cjbgd11o40004dgjkfgpyg9oe" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -346,7 +346,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="整体部署架构"><a href="#整体部署架构" class="headerlink" title="整体部署架构"></a>整体部署架构</h2><p><img src="/img/jiagou8.png" alt="部署架构图"></p>
+        <h2 id="整体部署架构"><a href="#整体部署架构" class="headerlink" title="整体部署架构"></a>整体部署架构</h2><p><img src="/img/talos/jiagou8.png" alt="部署架构图"></p>
 <h2 id="部署节点数及基准配置"><a href="#部署节点数及基准配置" class="headerlink" title="部署节点数及基准配置"></a>部署节点数及基准配置</h2><table>
 <thead>
 <tr>
@@ -468,7 +468,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kplxq.github.io/2017/12/14/部署文档/" data-id="cjbgaaluy000bqwjkra7kiydr" class="article-share-link">Share</a>
+      <a data-url="http://kplxq.github.io/2017/12/14/部署文档/" data-id="cjbgd11od0005dgjkywz0hp9q" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
@@ -510,7 +510,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
@@ -520,7 +520,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
