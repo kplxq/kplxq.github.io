@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Kafka部署文档 | 开普勒鑫球</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机器列表   节点 建议host     Node1 kafka1 zk1   Node2 kafka2 zk2   Node3 kafka3 zk3    逻辑拓扑 部署步骤组件下载Download KafkaDownload Zookeeper 下载链接若失效，请参考官网最新链接 KafkaZookeeper Zookeeper安装 将zookeeper解压缩到/opt/zookeeper目录">
+<meta name="keywords" content="talos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka部署文档">
+<meta property="og:url" content="http://kplxq.github.io/2017/12/15/Kafka部署文档/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="机器列表   节点 建议host     Node1 kafka1 zk1   Node2 kafka2 zk2   Node3 kafka3 zk3    逻辑拓扑 部署步骤组件下载Download KafkaDownload Zookeeper 下载链接若失效，请参考官网最新链接 KafkaZookeeper Zookeeper安装 将zookeeper解压缩到/opt/zookeeper目录">
+<meta property="og:image" content="http://kplxq.github.io/img/kafka-tuopu.png">
+<meta property="og:updated_time" content="2017-12-21T08:25:25.931Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kafka部署文档">
+<meta name="twitter:description" content="机器列表   节点 建议host     Node1 kafka1 zk1   Node2 kafka2 zk2   Node3 kafka3 zk3    逻辑拓扑 部署步骤组件下载Download KafkaDownload Zookeeper 下载链接若失效，请参考官网最新链接 KafkaZookeeper Zookeeper安装 将zookeeper解压缩到/opt/zookeeper目录">
+<meta name="twitter:image" content="http://kplxq.github.io/img/kafka-tuopu.png">
+  
+    <link rel="alternate" href="/atom.xml" title="开普勒鑫球" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">开普勒鑫球</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kplxq.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Kafka部署文档" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/15/Kafka部署文档/" class="article-date">
+  <time datetime="2017-12-15T07:01:57.000Z" itemprop="datePublished">2017-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kafka部署文档
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="机器列表"><a href="#机器列表" class="headerlink" title="机器列表"></a>机器列表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">节点</th>
+<th style="text-align:center">建议host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Node1</td>
+<td style="text-align:center">kafka1 zk1</td>
+</tr>
+<tr>
+<td style="text-align:center">Node2</td>
+<td style="text-align:center">kafka2 zk2</td>
+</tr>
+<tr>
+<td style="text-align:center">Node3</td>
+<td style="text-align:center">kafka3 zk3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑拓扑"><a href="#逻辑拓扑" class="headerlink" title="逻辑拓扑"></a>逻辑拓扑</h2><p><img src="/img/kafka-tuopu.png" alt="Kafka逻辑拓扑"></p>
+<h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="组件下载"><a href="#组件下载" class="headerlink" title="组件下载"></a>组件下载</h3><p><a href="https://archive.apache.org/dist/kafka/0.10.0.1/kafka_2.10-0.10.0.1.tgz" target="_blank" rel="noopener">Download Kafka</a><br><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.10/" target="_blank" rel="noopener">Download Zookeeper</a></p>
+<p>下载链接若失效，请参考官网最新链接</p>
+<p><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a><br><a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper</a></p>
+<h3 id="Zookeeper安装"><a href="#Zookeeper安装" class="headerlink" title="Zookeeper安装"></a>Zookeeper安装</h3><ul>
+<li>将zookeeper解压缩到/opt/zookeeper目录下</li>
+<li>cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg</li>
+<li><p>修改配置文件: vim /opt/zookeeper/conf/zoo.cfg<br>  文件末尾加上</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">autopurge.purgeInterval=1</span><br><span class="line">server.1 = kafka1:2888:3888</span><br><span class="line">server.2 = kafka2:2888:3888</span><br><span class="line">server.3 = kafka3:2888:3888</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>/opt/zookeeper/bin/zkServer.sh start 启动 zk</p>
+</li>
+</ul>
+<h3 id="Kafka安装"><a href="#Kafka安装" class="headerlink" title="Kafka安装"></a>Kafka安装</h3><p>1、 将kafka解压缩到/opt/kafka目录下<br>2、 修改/opt/kafka/config/consumer.properties文件，将<code>zookeeper.connect=127.0.0.1:2181</code>改成<code>zookeeper.connect=zk1:2181,zk2:2181,zk3:2181</code><br>3、修改/opt/kafka/config/producer.properties文件，将<code>bootstrap.servers=localhost:9092</code>改成<code>bootstrap.servers=kafka1:9092,kafka2:9092,kafka3:9092</code><br>4、修改/opt/kafka/config/server.properties文件，修改以下key：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">broker.id=2   （2表示node2，node1就是1，node3就是3）</span><br><span class="line">listeners=PLAINTEXT://127.0.0.1:9092  （本机ip）</span><br><span class="line">zookeeper.connect=zk1:2181,zk2:2181,zk3:2181</span><br></pre></td></tr></table></figure></p>
+<p>5、在/tmp/zookeeper目录下，新建一个myid文件，内容是2（node2就写2， node3就写3，同broker.id）<br>6、进入/opt/kafka/bin/目录<br>执行 <code>./kafka-server-start.sh ../config/server.properties &amp;</code> 启动kafka</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kplxq.github.io/2017/12/15/Kafka部署文档/" data-id="cjbg80a8r000110jkh4maxli6" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/talos/">talos</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/15/Elasticsearch部署文档/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Elasticsearch部署文档
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/15/架构设计/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">架构设计</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/talos/" style="font-size: 10px;">talos</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/20/Talos接入使用说明/">Talos接入使用说明</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/15/Elasticsearch部署文档/">Elasticsearch部署文档</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/15/Kafka部署文档/">Kafka部署文档</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/15/架构设计/">架构设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/14/部署文档/">部署文档</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 kxjf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
