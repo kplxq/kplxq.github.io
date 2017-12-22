@@ -3,21 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Kafka部署文档 | 开普勒鑫球</title>
+    <title>Categories | 开普勒鑫球</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="机器列表   节点 建议host     Node1 kafka1 zk1   Node2 kafka2 zk2   Node3 kafka3 zk3">
-<meta name="keywords" content="talos">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Kafka部署文档">
-<meta property="og:url" content="http://kplxq.github.io/2017/12/15/Kafka部署文档/index.html">
+    <meta name="description" content="kxjf Dapper talos">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Categories">
+<meta property="og:url" content="http://kplxq.github.io/categories/index.html">
 <meta property="og:site_name" content="开普勒鑫球">
-<meta property="og:description" content="机器列表   节点 建议host     Node1 kafka1 zk1   Node2 kafka2 zk2   Node3 kafka3 zk3">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/kafka-tuopu.png">
-<meta property="og:updated_time" content="2017-12-22T07:26:50.150Z">
+<meta property="og:description" content="kxjf Dapper talos">
+<meta property="og:updated_time" content="2017-12-21T14:20:50.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kafka部署文档">
-<meta name="twitter:description" content="机器列表   节点 建议host     Node1 kafka1 zk1   Node2 kafka2 zk2   Node3 kafka3 zk3">
-<meta name="twitter:image" content="http://kplxq.github.io/img/talos/kafka-tuopu.png">
+<meta name="twitter:title" content="Categories">
+<meta name="twitter:description" content="kxjf Dapper talos">
     
 
     
@@ -202,193 +199,14 @@
 </aside>
 
             
-            <section id="main"><article id="post-Kafka部署文档" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-            Kafka部署文档
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/Kafka部署文档/">
-            <time datetime="2017-12-15T07:01:57.000Z" itemprop="datePublished">2017-12-15</time>
-        </a>
+            <section id="main"><section class="layout-wrap">
+    <div class="layout-title">
+        <span>Categories</span>
     </div>
-
-
-                        
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
+    <div class="layout-wrap-inner list-categories">
+        
     </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h2 id="机器列表"><a href="#机器列表" class="headerlink" title="机器列表"></a>机器列表</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">节点</th>
-<th style="text-align:center">建议host</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Node1</td>
-<td style="text-align:center">kafka1 zk1</td>
-</tr>
-<tr>
-<td style="text-align:center">Node2</td>
-<td style="text-align:center">kafka2 zk2</td>
-</tr>
-<tr>
-<td style="text-align:center">Node3</td>
-<td style="text-align:center">kafka3 zk3</td>
-</tr>
-</tbody>
-</table>
-<a id="more"></a>
-<h2 id="逻辑拓扑"><a href="#逻辑拓扑" class="headerlink" title="逻辑拓扑"></a>逻辑拓扑</h2><p><img src="/img/talos/kafka-tuopu.png" alt="Kafka逻辑拓扑"></p>
-<h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="组件下载"><a href="#组件下载" class="headerlink" title="组件下载"></a>组件下载</h3><p><a href="https://archive.apache.org/dist/kafka/0.10.0.1/kafka_2.10-0.10.0.1.tgz" target="_blank" rel="noopener">Download Kafka</a><br><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.10/" target="_blank" rel="noopener">Download Zookeeper</a></p>
-<p>下载链接若失效，请参考官网最新链接</p>
-<p><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a><br><a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper</a></p>
-<h3 id="Zookeeper安装"><a href="#Zookeeper安装" class="headerlink" title="Zookeeper安装"></a>Zookeeper安装</h3><ul>
-<li>将zookeeper解压缩到/opt/zookeeper目录下</li>
-<li>cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg</li>
-<li><p>修改配置文件: vim /opt/zookeeper/conf/zoo.cfg<br>  文件末尾加上</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">autopurge.purgeInterval=1</span><br><span class="line">server.1 = kafka1:2888:3888</span><br><span class="line">server.2 = kafka2:2888:3888</span><br><span class="line">server.3 = kafka3:2888:3888</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>/opt/zookeeper/bin/zkServer.sh start 启动 zk</p>
-</li>
-</ul>
-<h3 id="Kafka安装"><a href="#Kafka安装" class="headerlink" title="Kafka安装"></a>Kafka安装</h3><p>1、 将kafka解压缩到/opt/kafka目录下<br>2、 修改/opt/kafka/config/consumer.properties文件，将<code>zookeeper.connect=127.0.0.1:2181</code>改成<code>zookeeper.connect=zk1:2181,zk2:2181,zk3:2181</code><br>3、修改/opt/kafka/config/producer.properties文件，将<code>bootstrap.servers=localhost:9092</code>改成<code>bootstrap.servers=kafka1:9092,kafka2:9092,kafka3:9092</code><br>4、修改/opt/kafka/config/server.properties文件，修改以下key：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">broker.id=2   （2表示node2，node1就是1，node3就是3）</span><br><span class="line">listeners=PLAINTEXT://127.0.0.1:9092  （本机ip）</span><br><span class="line">zookeeper.connect=zk1:2181,zk2:2181,zk3:2181</span><br></pre></td></tr></table></figure></p>
-<p>5、在/tmp/zookeeper目录下，新建一个myid文件，内容是2（node2就写2， node3就写3，同broker.id）<br>6、进入/opt/kafka/bin/目录<br>执行 <code>./kafka-server-start.sh ../config/server.properties &amp;</code> 启动kafka</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://kplxq.github.io/2017/12/15/Kafka部署文档/" data-id="cjbgni2ie0001dcjkfh4wrvjs" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2017/12/15/Elasticsearch部署文档/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    Elasticsearch部署文档
-                
-            </div>
-        </a>
-    
-    
-        <a href="/2017/12/15/架构设计/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">架构设计</div>
-        </a>
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    
-
-</section>
+</section></section>
             
                 
 <aside id="sidebar">
