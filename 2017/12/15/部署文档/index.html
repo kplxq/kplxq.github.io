@@ -3,26 +3,21 @@
 <head>
     <meta charset="utf-8">
     
-    <title>架构设计 | 开普勒鑫球</title>
+    <title>部署文档 | 开普勒鑫球</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="keywords" content="talos">
+    <meta name="description" content="整体部署架构">
+<meta name="keywords" content="talos">
 <meta property="og:type" content="article">
-<meta property="og:title" content="架构设计">
-<meta property="og:url" content="http://kplxq.github.io/2017/12/15/架构设计/index.html">
+<meta property="og:title" content="部署文档">
+<meta property="og:url" content="http://kplxq.github.io/2017/12/15/部署文档/index.html">
 <meta property="og:site_name" content="开普勒鑫球">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou1.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou2.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou3.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou4.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou5.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou6.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou7.png">
-<meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou8.png">
+<meta property="og:description" content="整体部署架构">
 <meta property="og:image" content="http://kplxq.github.io/img/talos/jiagou9.png">
-<meta property="og:updated_time" content="2017-12-22T09:59:10.504Z">
+<meta property="og:updated_time" content="2017-12-22T10:00:06.488Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="架构设计">
-<meta name="twitter:image" content="http://kplxq.github.io/img/talos/jiagou1.png">
+<meta name="twitter:title" content="部署文档">
+<meta name="twitter:description" content="整体部署架构">
+<meta name="twitter:image" content="http://kplxq.github.io/img/talos/jiagou9.png">
     
 
     
@@ -207,7 +202,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-架构设计" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-部署文档" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -215,7 +210,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            架构设计
+            部署文档
         </h1>
     
 
@@ -224,8 +219,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/架构设计/">
-            <time datetime="2017-12-15T15:07:13.000Z" itemprop="datePublished">2017-12-15</time>
+        <a href="/2017/12/15/部署文档/">
+            <time datetime="2017-12-15T14:59:56.000Z" itemprop="datePublished">2017-12-15</time>
         </a>
     </div>
 
@@ -245,7 +240,125 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><img src="/img/talos/jiagou1.png" alt=""><br><a id="more"></a><br><img src="/img/talos/jiagou2.png" alt=""><br><img src="/img/talos/jiagou3.png" alt=""><br><img src="/img/talos/jiagou4.png" alt=""><br><img src="/img/talos/jiagou5.png" alt=""><br><img src="/img/talos/jiagou6.png" alt=""><br><img src="/img/talos/jiagou7.png" alt=""><br><img src="/img/talos/jiagou8.png" alt=""><br><img src="/img/talos/jiagou9.png" alt=""></p>
+            <h2 id="整体部署架构"><a href="#整体部署架构" class="headerlink" title="整体部署架构"></a>整体部署架构</h2><p><img src="/img/talos/jiagou9.png" alt="部署架构图"></p>
+<a id="more"></a>
+<h2 id="部署节点数及基准配置"><a href="#部署节点数及基准配置" class="headerlink" title="部署节点数及基准配置"></a>部署节点数及基准配置</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">组件名称</th>
+<th style="text-align:center">组件类型</th>
+<th style="text-align:center">建议节点数</th>
+<th style="text-align:center">基准配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">搜索引擎(elastic search)</td>
+<td style="text-align:center">中间件</td>
+<td style="text-align:center">Elastic Search(3)</td>
+<td style="text-align:center">cpu:2C<br> memory:8G</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式列存储数据库(Hbase)</td>
+<td style="text-align:center">中间件</td>
+<td style="text-align:center">CDH Manager(1)</td>
+<td style="text-align:center">cpu:2C <br>memory:4G <br>disk:50G</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式列存储数据库(Hbase)</td>
+<td style="text-align:center">中间件</td>
+<td style="text-align:center">Hbase MasterServer(1)</td>
+<td style="text-align:center">cpu:2C <br>memory:4G <br>disk:50G</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式列存储数据库(Hbase)</td>
+<td style="text-align:center">中间件</td>
+<td style="text-align:center">Hbase RegionServer(2)</td>
+<td style="text-align:center">cpu:2C <br>memory:4G <br>disk:150G(留存30天数据)</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式队列服务器(Kafka)</td>
+<td style="text-align:center">中间件</td>
+<td style="text-align:center">Kafka Server(3)</td>
+<td style="text-align:center">cpu:2C <br>memory:4G <br>disk:20G</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式配置管理服务器(zookeeper)</td>
+<td style="text-align:center">中间件</td>
+<td style="text-align:center">Zookeeper Server(3)</td>
+<td style="text-align:center">cpu:2C <br>memory:4G</td>
+</tr>
+<tr>
+<td style="text-align:center">talos-storage</td>
+<td style="text-align:center">自有组件</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">cpu:2C <br>memory:4G <br>disk:20G</td>
+</tr>
+<tr>
+<td style="text-align:center">talos-dashboard</td>
+<td style="text-align:center">自有组件</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">cpu:2C <br>memory:4G <br>disk:20G</td>
+</tr>
+</tbody>
+</table>
+<h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="hosts配置"><a href="#hosts配置" class="headerlink" title="hosts配置"></a>hosts配置</h3><p>在部署前请维护整个集群环境的hosts，并推送到每个部署节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#es 集群</span><br><span class="line">192.168.99.101 es1</span><br><span class="line">192.168.99.102 es2</span><br><span class="line">192.168.99.103 es3</span><br><span class="line"></span><br><span class="line"># kafka集群</span><br><span class="line">192.168.99.104 kafka1 zk1</span><br><span class="line">192.168.99.105 kafka2 zk2</span><br><span class="line">192.168.99.106 kafka3 zk3</span><br><span class="line"></span><br><span class="line"># hbase集群</span><br><span class="line">192.168.99.107 hbase1</span><br><span class="line">192.168.99.108 hbase2</span><br><span class="line">192.168.99.109 hbase3</span><br><span class="line">192.168.99.110 cdhmaster</span><br><span class="line"></span><br><span class="line"># talos-dashboard</span><br><span class="line">192.168.99.111 talos-dashboard</span><br><span class="line"></span><br><span class="line"># talos-storage</span><br><span class="line">192.168.99.112 talos-storage1</span><br><span class="line">192.168.99.113 talos-storage2</span><br></pre></td></tr></table></figure>
+<h3 id="中间件安装"><a href="#中间件安装" class="headerlink" title="中间件安装"></a>中间件安装</h3><p>中间件版本信息如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">中间件名称</th>
+<th style="text-align:center">版本</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">搜索引擎</td>
+<td style="text-align:center">Elastic Search-2.4.0</td>
+<td style="text-align:center">3个节点</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式列存储数据库</td>
+<td style="text-align:center">Hbase-1.2.0(CDH-5.8.0)</td>
+<td style="text-align:center">4个节点<br> CDH Manager(1)<br> Hbase MasterServer()<br> Hbase RegionServer(2)</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式队列服务器</td>
+<td style="text-align:center">Kafka-2.11-0.10.0.1</td>
+<td style="text-align:center">3个节点</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式文件系统</td>
+<td style="text-align:center">Hdfs-2.6.0(CDH-5.8.0)</td>
+<td style="text-align:center">内嵌至Hbase部署中</td>
+</tr>
+<tr>
+<td style="text-align:center">分布式配置管理服务器</td>
+<td style="text-align:center">Zookeeper-3.4.5(CDH-5.8.0)</td>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h4><p>1、中间件安装另附文档<a href="/2017/12/15/Kafka部署文档">Kafka部署文档</a><br>2、创建Talos系统在kafka集群所用的topic</p>
+<p>配置如下：</p>
+<p>topic名称：talos-open-source<br>partition数目：1024<br>replication数据：1 (无需备份)</p>
+<p>脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1024 --topic talos-open-source</span><br></pre></td></tr></table></figure>
+<h4 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h4><p>1、中间件安装另附文档<a href="/2017/12/15/Elasticsearch部署文档">Elasticsearch部署文档</a><br>2、创建Talos系统elasticsearch索引</p>
+<p>配置如下：<br>index： talos<br>mapping: trace<br>刷新时间：5s<br>分片数：5<br>备份：0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST http://es1:9200/talos -d &apos;&#123;</span><br><span class="line">    &quot;settings&quot; : &#123;</span><br><span class="line">        &quot;number_of_replicas&quot;: &quot;0&quot;,</span><br><span class="line">        &quot;number_of_shards&quot;: &quot;5&quot;,</span><br><span class="line">        &quot;refresh_interval&quot;: &quot;5s&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mappings&quot; : &#123;</span><br><span class="line">        &quot;trace&quot; : &#123;</span><br><span class="line">            &quot;properties&quot; : &#123;</span><br><span class="line">                &quot;traceid&quot; : &#123; &quot;type&quot; : &quot;string&quot;, &quot;index&quot; : &quot;not_analyzed&quot; &#125;,</span><br><span class="line">                &quot;contents&quot; : &#123; &quot;type&quot; : &quot;string&quot;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h4><p>1、中间件安装参考<a href="https://www.cnblogs.com/jasondan/p/4011153.html" target="_blank" rel="noopener">HBase部署文档</a><br>2、创建Talos系统Hbase表</p>
+<p>配置如下：<br>表名：trace<br>rowkey: id （talos系统中的traceId)<br>列族：span （talos系统中的不同的spanId即为该列族下的不同列）<br>数据失效时间：30天</p>
+<p>脚本如下（在hbase shell中执行）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create &apos;trace&apos;, &#123;NAME=&gt;&apos;id&apos;, TTL=&gt;&apos;2592000&apos;&#125;,&#123;NAME=&gt;&apos;span&apos;, TTL=&gt;&apos;2592000&apos;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="系统自有组件安装"><a href="#系统自有组件安装" class="headerlink" title="系统自有组件安装"></a>系统自有组件安装</h3><h4 id="talos-dashboard"><a href="#talos-dashboard" class="headerlink" title="talos-dashboard"></a>talos-dashboard</h4><p>部署前请确认hosts已更新</p>
+<p>1、下载talos-dashboard.war<br>2、将talos-dashboard包放到tomcat/webapps路径下<br>3、启动tomcat<br>4、浏览器打开talos-dashboard，地址：<a href="http://talos-dashboard:8080/talos-dashboard/index.html" target="_blank" rel="noopener">http://talos-dashboard:8080/talos-dashboard/index.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/tomcat</span><br><span class="line">wget https://gitee.com/lhldyf/talos-readme/raw/master/talos-dashboard.war</span><br><span class="line">service tomcat start</span><br></pre></td></tr></table></figure>
+<h4 id="talos-storage"><a href="#talos-storage" class="headerlink" title="talos-storage"></a>talos-storage</h4><p>部署前请确认hosts已更新</p>
+<p>1、下载talos-storage.zip<br>2、解压至/usr/share/talos-storage<br>3、启动talos-storage</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget https://gitee.com/lhldyf/talos-readme/raw/master/talos-storage.zip</span><br><span class="line">unzip /tmp/talos-storage.zip -d /usr/share</span><br><span class="line">cd /usr/share/talos-storage</span><br><span class="line">sh bin/start.sh;tailf logs/stdout.log</span><br></pre></td></tr></table></figure>
 
         
         </div>
@@ -256,7 +369,7 @@
 
 </div>
 
-    <a data-url="http://kplxq.github.io/2017/12/15/架构设计/" data-id="cjbhqt9sn0007vojkybv82465" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://kplxq.github.io/2017/12/15/部署文档/" data-id="cjbhqt9sr0008vojkg6mfhph5" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -331,10 +444,19 @@
         
 <nav id="article-nav">
     
+        <a href="/2017/12/15/架构设计/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Más nuevo</strong>
+            <div class="article-nav-title">
+                
+                    架构设计
+                
+            </div>
+        </a>
     
-        <a href="/2017/12/15/部署文档/" id="article-nav-older" class="article-nav-link-wrap">
+    
+        <a href="/2017/12/15/Kafka部署文档/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Más viejo</strong>
-            <div class="article-nav-title">部署文档</div>
+            <div class="article-nav-title">Kafka部署文档</div>
         </a>
     
 </nav>

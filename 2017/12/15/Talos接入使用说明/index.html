@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Talos接入使用说明 | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="运行环境开发环境开发环境需要：  JDK1.7+ Maven3.1+">
+<meta name="keywords" content="talos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Talos接入使用说明">
+<meta property="og:url" content="http://kplxq.github.io/2017/12/15/Talos接入使用说明/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="运行环境开发环境开发环境需要：  JDK1.7+ Maven3.1+">
+<meta property="og:updated_time" content="2017-12-22T10:03:55.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Talos接入使用说明">
+<meta name="twitter:description" content="运行环境开发环境开发环境需要：  JDK1.7+ Maven3.1+">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="/categories">目录</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/logo.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Entradas',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categorias',
+            TAGS: 'Etiquetas',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/logo.png" />
+            <h2 id="name">开普勒鑫球</h2>
+            <h3 id="title">有趣、好玩、开放、共享的技术社区</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">SEGUIR</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                5
+                <span>Entradas</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>Etiqueta</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Talos接入使用说明" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Talos接入使用说明
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/12/15/Talos接入使用说明/">
+            <time datetime="2017-12-15T11:14:07.000Z" itemprop="datePublished">2017-12-15</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/talos/">talos</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>开发环境需要：</p>
+<ul>
+<li>JDK1.7+</li>
+<li>Maven3.1+</li>
+</ul>
+<a id="more"></a>
+<h3 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.kxjf.talos&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;talos-interceptor&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>这里对一些配置进行解释说明，范例代码移步<a href="https://github.com/kplxq/talos/tree/master/talos-sample" target="_blank" rel="noopener">talos-sample</a></p>
+<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><h4 id="必选配置"><a href="#必选配置" class="headerlink" title="必选配置"></a>必选配置</h4><h5 id="Talos实例化"><a href="#Talos实例化" class="headerlink" title="Talos实例化"></a>Talos实例化</h5><p>Spring配置Talos实例，配置说明：<br>1、    serviceName：用于区分集群应用，需唯一，建议取机器host<br>2、    collector ：数据收集的实现方法，默认使用日志收集方式，需额外配置logback，系统目前提供这一种收集方式，可自行实现</p>
+<p>参考配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;talos&quot; class=&quot;com.kxd.talos.trace.core.Talos&quot;&gt;</span><br><span class="line">	&lt;constructor-arg type=&quot;String&quot; value=&quot;talos-sample&quot; /&gt;</span><br><span class="line">	&lt;constructor-arg type=&quot;float&quot; value=&quot;1.0f&quot; /&gt;</span><br><span class="line">	&lt;constructor-arg ref=&quot;loggingSpanCollector&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="logback配置"><a href="#logback配置" class="headerlink" title="logback配置"></a>logback配置</h5><p>配置logback.xml，需增加trace collector的日志输出配置，有几个自定义的环境配置，说明如下：<br>1、    KAFKA_TOPIC_NAME: kafka推送的topic名称，用于接收日志数据<br>2、    KAFKA_BOOTSTRAP_SERVERS ： kafka集群节点配置，” ip1:port1,ip2:port2…” 的方式配置即可。<br>参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;appender name=&quot;talosTraceCollectorFileAppender&quot;</span><br><span class="line">	class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;</span><br><span class="line">	&lt;!-- 正在记录的日志文件的路径及文件名 --&gt;</span><br><span class="line">	&lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;</span><br><span class="line">		&lt;!--日志文件输出的文件名 --&gt;</span><br><span class="line">		&lt;fileNamePattern&gt;$&#123;LOG_HOME&#125;/$&#123;TALOS_TRACE_LOG_FILE&#125;</span><br><span class="line">		&lt;/fileNamePattern&gt;</span><br><span class="line">		&lt;!--日志文件保留天数 --&gt;</span><br><span class="line">		&lt;MaxHistory&gt;$&#123;LOG_SAVE_DAYS&#125;&lt;/MaxHistory&gt;</span><br><span class="line">	&lt;/rollingPolicy&gt;</span><br><span class="line">	&lt;encoder class=&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;&gt;</span><br><span class="line">		&lt;pattern&gt;%msg%n&lt;/pattern&gt;</span><br><span class="line">	&lt;/encoder&gt;</span><br><span class="line">&lt;/appender&gt;</span><br><span class="line">&lt;appender name=&quot;talosKafkaAppender&quot;</span><br><span class="line">	class=&quot;com.github.danielwegener.logback.kafka.KafkaAppender&quot;&gt;</span><br><span class="line">	&lt;encoder</span><br><span class="line">class=&quot;com.github.danielwegener.logback.kafka.encoding.LayoutKafkaMessageEncoder&quot;&gt;</span><br><span class="line">		&lt;layout class=&quot;ch.qos.logback.classic.PatternLayout&quot;&gt;</span><br><span class="line">			&lt;pattern&gt; %msg&lt;/pattern&gt;</span><br><span class="line">		&lt;/layout&gt;</span><br><span class="line">	&lt;/encoder&gt;</span><br><span class="line">	&lt;topic&gt;$&#123;KAFKA_TOPIC_NAME&#125;&lt;/topic&gt;</span><br><span class="line">	&lt;keyingStrategy</span><br><span class="line">class=&quot;com.github.danielwegener.logback.kafka.keying.RoundRobinKeyingStrategy&quot; /&gt;</span><br><span class="line">	&lt;deliveryStrategy</span><br><span class="line">class=&quot;com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy&quot; /&gt;</span><br><span class="line">&lt;producerConfig&gt;bootstrap.servers=$&#123;KAFKA_BOOTSTRAP_SERVERS&#125;</span><br><span class="line">	&lt;/producerConfig&gt;</span><br><span class="line">	&lt;!-- this is the fallback appender if kafka is not available. --&gt;</span><br><span class="line">	&lt;appender-ref ref=&quot;talosTraceCollectorAppender&quot; /&gt;</span><br><span class="line">&lt;/appender&gt;</span><br><span class="line">&lt;appender name=&quot;asyncTalosKafkaAppender&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;</span><br><span class="line">	&lt;appender-ref ref=&quot;talosKafkaAppender&quot; /&gt;</span><br><span class="line">&lt;/appender&gt;</span><br><span class="line">&lt;logger name=&quot;com.kxd.talos.trace.core.collector&quot; level=&quot;ALL&quot;</span><br><span class="line">	additivity=&quot;true&quot;&gt;</span><br><span class="line">	&lt;appender-ref ref=&quot;asyncTalosKafkaAppender&quot; /&gt;</span><br><span class="line">	&lt;appender-ref ref=&quot;talosTraceCollectorFileAppender&quot; /&gt;</span><br><span class="line">&lt;/logger&gt;</span><br></pre></td></tr></table></figure>
+<p>配置logback.properties，参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TALOS_TRACE_LOG_FILE=talos-trace_%d&#123;yyyy-MM-dd&#125;.log</span><br><span class="line">KAFKA_BOOTSTRAP_SERVERS=kafka1:9092,kafka2:9092,kafka3:9092</span><br><span class="line">KAFKA_TOPIC_NAME=talos-open-source</span><br></pre></td></tr></table></figure>
+<h4 id="Web应用配置"><a href="#Web应用配置" class="headerlink" title="Web应用配置"></a>Web应用配置</h4><h5 id="TalosServletFilter"><a href="#TalosServletFilter" class="headerlink" title="TalosServletFilter"></a>TalosServletFilter</h5><p>Spring配置TalosServletFilter实例，初始化配置filter中的Talos实例，参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;httpServerServletFilter&quot;</span><br><span class="line">	class=&quot;com.kxd.talos.trace.interceptor.server.http.TalosServletFilter&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;talos&quot; ref=&quot;talos&quot; /&gt;</span><br><span class="line">	&lt;!-- 配置需要过滤的url,可使用*进行匹配,如有多个,用英文逗号(,)分割 --&gt;</span><br><span class="line">	&lt;property name=&quot;patterns&quot; value=&quot;/**&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>web.xml中增加配置，使用代理模式，参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">	&lt;filter-name&gt;TraceFilter&lt;/filter-name&gt;</span><br><span class="line">	&lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;targetFilterLifecycle&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;targetBeanName&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;httpServerServletFilter&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;TraceFilter&lt;/filter-name&gt;</span><br><span class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="多线程配置"><a href="#多线程配置" class="headerlink" title="多线程配置"></a>多线程配置</h4><p>使用约束：<br>1、    多线程使用线程池方式(ThreadPoolExecutor)，不得使用new Thread()模式生成新线程<br>2、    多线程方法必须实现Runable或Callable接口。<br>Talos对spring 线程池ThreadPoolTaskExecutor 做了一层额外封装，收集多线程的相关数据，在使用多线程定义线程池时，额外实例化该类实例，执行线程池方法时，使用该实例，参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;talosExecutorService&quot;</span><br><span class="line">	class=&quot;com.kxd.talos.trace.core.concurrent.TalosSpringThreadPool&quot;&gt;</span><br><span class="line">	&lt;constructor-arg ref=&quot;threadPoolExecutor&quot; /&gt;</span><br><span class="line">	&lt;constructor-arg ref=&quot;talos&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义采集配置"><a href="#自定义采集配置" class="headerlink" title="自定义采集配置"></a>自定义采集配置</h4><p>自定义采集如果需要使用callback模式，需要配置callback的模板如下：</p>
+<h5 id="TalosCallbackTemplate"><a href="#TalosCallbackTemplate" class="headerlink" title="TalosCallbackTemplate"></a>TalosCallbackTemplate</h5><p>AOP的拦截有一定的限制性，对于一些无法进行AOP切面拦截的方法入口，如果有采集数据的必要性，Talos提供了callback模式的采集方式，需要新增的配置如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;talosCallbackTemplate&quot; class=&quot;com.kxd.talos.core.trace.TalosCallbackTemplate&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;talos&quot; ref=&quot;talos&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="数据采集说明"><a href="#数据采集说明" class="headerlink" title="数据采集说明"></a>数据采集说明</h3><h4 id="自定义采集"><a href="#自定义采集" class="headerlink" title="自定义采集"></a>自定义采集</h4><p>Talos提供两种自定义的数据采集方式,以下两种方式二选一即可</p>
+<p>example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private void step3() &#123;</span><br><span class="line">	aopServiceB.step4();		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是现有的一个方法，无法通过AOP拦截，但又有数据采集的必要性，Talos系统提供两种实现方案，以下逐一说明：</p>
+<h5 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h5><p>注入talos，通过start方法和finish方法完成数据采集，注意需要将方法用try..catch捕获异常，并在finally语句中做finish操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private Talos                 talos;</span><br><span class="line"></span><br><span class="line">private void step3() &#123;</span><br><span class="line">    Span startSpan = talos.start(&quot;AopServiceA.step3&quot;);</span><br><span class="line">    try &#123;</span><br><span class="line">        aopServiceB.step4();</span><br><span class="line">    &#125; catch (AppException ae) &#123;</span><br><span class="line">        startSpan.setExType(&quot;A&quot;);</span><br><span class="line">        startSpan.setErrorCode(ae.getErrorCode());</span><br><span class="line">        throw ae;</span><br><span class="line">    &#125; catch (Throwable t) &#123;</span><br><span class="line">        startSpan.setExType(&quot;T&quot;);</span><br><span class="line">  		startSpan.setErrorCode(ErrorCode.ERROR_SERVICE_INTERCEPTOR_INVOKE);</span><br><span class="line">        throw t;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        talos.finish(startSpan);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h5><p>注入TalosCallbackTemplate实例，将原有方法放在TalosCallback的execute方法即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private TalosCallbackTemplate template;</span><br><span class="line"></span><br><span class="line">private void step3() &#123;</span><br><span class="line">	template.execute(null, new TalosCallback()&#123;</span><br><span class="line">		@Override</span><br><span class="line">		public Object execute(Object request) &#123;</span><br><span class="line">			aopServiceB.step4();</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="业务数据采集"><a href="#业务数据采集" class="headerlink" title="业务数据采集"></a>业务数据采集</h4><p>注:为保证可在海量数据中对指定业务调用链进行搜索,建议每个业务均应当进行业务数据的采集,且该业务数据应当可唯一标识某次业务调用</p>
+<p>为了更加易于检索出请求链路，业务人员必须在一个调用链中硬编码的方式写入一些业务数据。API为Talos.collect(String key, String value), 相关原则如下：<br>    1、key 为英文字母组成，驼峰命名，需能根据该值知晓其代表的含义，比如userName, userId等。<br>    2、value 长度不超过100，参数值确保可以方便的搜索出唯一一条调用链，或通过多个参数值确认一条调用链。<br>参考使用如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void withParam(ParamDto paramDto) &#123;</span><br><span class="line">	Talos.collect(&quot;userName&quot;, paramDto.getUserName());</span><br><span class="line">	aopServiceB.step1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="多线程数据采集"><a href="#多线程数据采集" class="headerlink" title="多线程数据采集"></a>多线程数据采集</h4><p>通过Spring注入TalosSpringThreadPool的实例，使用方法参考ThreadPoolTaskExecutor，参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private TalosSpringThreadPool talosExecutorService;</span><br><span class="line"></span><br><span class="line">public void call2thread() &#123;</span><br><span class="line">	talosExecutorService.submit(callableService);</span><br><span class="line">	try &#123;</span><br><span class="line">		TimeUnit.SECONDS.sleep(2);</span><br><span class="line">	&#125; catch (InterruptedException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	talosExecutorService.submit(callableService2);</span><br><span class="line">	try &#123;</span><br><span class="line">		TimeUnit.SECONDS.sleep(2);</span><br><span class="line">	&#125; catch (InterruptedException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2017/12/15/Talos接入使用说明/" data-id="cjbhqt9sg0005vojkvf7m8ifq" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/12/15/Elasticsearch部署文档/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Más nuevo</strong>
+            <div class="article-nav-title">
+                
+                    Elasticsearch部署文档
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Recientes</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/架构设计/" class="title">架构设计</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T15:07:13.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/部署文档/" class="title">部署文档</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T14:59:56.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/Kafka部署文档/" class="title">Kafka部署文档</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T13:01:57.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/Elasticsearch部署文档/" class="title">Elasticsearch部署文档</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T11:57:07.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/Talos接入使用说明/" class="title">Talos接入使用说明</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T11:14:07.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Archivos</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Etiquetas</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Nube de etiquetas</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/talos/" style="font-size: 10px;">talos</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">Links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 kxjf<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
