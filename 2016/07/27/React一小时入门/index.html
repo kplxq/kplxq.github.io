@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React一小时入门 | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="React是Facebook开发的js库，不仅影响了其他前端库的开发思路，而且还引申出React Native等技术，在开源世界引起了极大的反响。  Facebook为什么要花费大量的精力开发React，为了解决什么问题，以及如何解决问题，我们将就这些问题做一些简单的讨论和学习。">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React一小时入门">
+<meta property="og:url" content="http://kplxq.github.io/2016/07/27/React一小时入门/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="React是Facebook开发的js库，不仅影响了其他前端库的开发思路，而且还引申出React Native等技术，在开源世界引起了极大的反响。  Facebook为什么要花费大量的精力开发React，为了解决什么问题，以及如何解决问题，我们将就这些问题做一些简单的讨论和学习。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic1.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic2.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic3.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic4.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic5.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic6.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic7.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic8.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic9.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic10.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic11.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160727/pic12.jpg">
+<meta property="og:updated_time" content="2018-01-16T09:18:28.180Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React一小时入门">
+<meta name="twitter:description" content="React是Facebook开发的js库，不仅影响了其他前端库的开发思路，而且还引申出React Native等技术，在开源世界引起了极大的反响。  Facebook为什么要花费大量的精力开发React，为了解决什么问题，以及如何解决问题，我们将就这些问题做一些简单的讨论和学习。">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20160727/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/logo.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/logo.png" />
+            <h2 id="name">开普勒鑫球</h2>
+            <h3 id="title">有趣、好玩、开放、共享的技术社区</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                11
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                5
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-React一小时入门" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            React一小时入门
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/27/React一小时入门/">
+            <time datetime="2016-07-27T08:23:36.000Z" itemprop="datePublished">2016-07-27</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/React/">React</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>React是Facebook开发的js库，不仅影响了其他前端库的开发思路，而且还引申出React Native等技术，在开源世界引起了极大的反响。</p>
+<p><img src="/img/article/20160727/pic1.jpg" alt=""></p>
+<p>Facebook为什么要花费大量的精力开发React，为了解决什么问题，以及如何解决问题，我们将就这些问题做一些简单的讨论和学习。</p>
+<a id="more"></a>
+<h2 id="React背景"><a href="#React背景" class="headerlink" title="React背景"></a>React背景</h2><p>Facebook在开发广告系统时发现，因为他们非常庞大的代码库，导致前端的MVC架构非常复杂难以维护。每当开发新需求时，系统复杂度成倍增长，代码非常脆弱且执行结果不可预测。所以Facebook认为MVC架构不适合开发大规模的前端应用，其中很重要的原因是应用中的模型（M）和视图（V）之间的双向数据绑定导致前端代码复杂度迅速提高，难以理解和调试，极大地影响Facebook的开发效率。</p>
+<p>Facebook给出的解决方案就是React。React在Facebook内部已经试用了多年，效果很好。React另辟蹊径解决前端代码复杂度高的问题，JSX语法甚至被初学者认为不伦不类。但是我在尝试了React之后，我无法自拔地喜欢上了这种单向数据驱动的开发思路。</p>
+<p>那么React是解决什么问题的呢，Facebook官网上介绍说：</p>
+<blockquote>
+<p>We built React to solve one problem: building large applications with data that changes over time.</p>
+</blockquote>
+<p>即React是用来构建那些数据会随时改变的大型应用。为了构建大型应用，React有两个主要的特点：</p>
+<ul>
+<li>简洁<br>代码里非常简单的描述在每个时间点应用应该呈现的样子。当应用数据改变时，React会自动管理UI界面。</li>
+<li>声明式<br>当数据发生改变时，React表现的是刷新DOM树。但事实上React仅仅更新发生了变化的那一部分。我们要做的就是构建组件（Component），封装组件。React自动管理组件的生命周期。</li>
+</ul>
+<h2 id="React特性"><a href="#React特性" class="headerlink" title="React特性"></a>React特性</h2><p>React有三大特性：组件化、虚拟DOM和单向数据流。这三大特性是React运行的基础，并且由虚拟DOM衍生出React Native项目。</p>
+<ul>
+<li>组件化<br>React允许将代码封装成组件（Component），然后像插入普通HTML标签一样，在页面中插入这个组件(源码参见：<a href="https://github.com/xeostream/react-demo/blob/master/helloworld.html)。" target="_blank" rel="noopener">https://github.com/xeostream/react-demo/blob/master/helloworld.html)。</a></li>
+</ul>
+<p><img src="/img/article/20160727/pic2.jpg" alt=""></p>
+<p>上述代码中，变量HelloMessage就是一个组件类。所有的组件类必须有render方法，用于输出组件内容。</p>
+<p>组件的用法与原生的HTML标签完全一致，可以任意加入属性。比如<hellomessage message="yo,what's up,man?">，就是在HelloMessage组件中加入message属性，值为“yo，what’up,man?”。组件内部可以通过this.props对象获取组件的属性，this.props.message就是取message属性值。上面代码的运行结果如下。</hellomessage></p>
+<p><img src="/img/article/20160727/pic3.jpg" alt=""></p>
+<p>组件化的最显著特征就是万物皆由组件构成，那么多个组件之间相互通信就是很大的问题。一般解决方式有三种：</p>
+<ol>
+<li>使用props，构建通信链</li>
+<li>在组件初始化时，保存组件的句柄。在其他组件中使用句柄达到直接访问组件的目的，完成通信</li>
+<li>使用PubSub模式</li>
+</ol>
+<p>首先第一种方法容易理解，但是在组件嵌套较深的情况下，为达到通信的目的，组件之间相互调用而且组件需要冗余许多不需要的props，不太适合；第二种方法避免了第一种方法的问题，但是需要维护很多变量，也不是非常好的方案；对于第三种方法，PubSub模式有助于组件解耦和代码组织，而且PubSub有很多开源实现。建议组件间通信使用PubSub模式。</p>
+<ul>
+<li>虚拟DOM<br>当组件状态改变的时候，React会自动调用组件的render方法重新渲染整个组件的UI。</li>
+</ul>
+<p><img src="/img/article/20160727/pic4.jpg" alt=""></p>
+<p>但是如果这样大面积的操作DOM，性能会是一个很大的问题，所以React实现了虚拟DOM。</p>
+<p><img src="/img/article/20160727/pic5.jpg" alt=""></p>
+<p>虚拟DOM是一个纯粹的JS数据结构，存到内存中，性能很快。React将组件的DOM结构映射到虚拟DOM上，在虚拟DOM上实现了一个高效的diff算法。所以每次当组件的数据更新时，React会通过diff算法找到需要更新的DOM节点，再把修改更新到浏览器实际的DOM节点上。</p>
+<ul>
+<li>单向数据流</li>
+</ul>
+<p>单向数据流是React推崇的一种应用架构的方式。在React的组件中，我们监听状态的变化，并在组件的声明周期函数里对组件状态做一个的响应和操作，即页面的变化只与状态数据的变更有关。这里展示一种官方的单向数据流实现：<br><img src="/img/article/20160727/pic6.jpg" alt=""></p>
+<p>（注：Flux由单向数据流扩展而来，React与Flux相互独立，React仅实现Flux架构中的View部分。当然也可以使用其他js库实现这个View。）</p>
+<p>这里我们将React组件理解为一个状态机，状态机内部的状态发生了改变，则对外的输出也会发生改变，两者之间的关系是一一对应的，即如果组件的状态数据是确定的话，则组件的输出也是确定的。这点对于前端的测试和DEBUG是非常大的帮助，对减少前端BUG是很有好处的。</p>
+<p>我开始不太理解单向数据流的概念，因为搞不清楚单向数据流和MVC的关系。其实单向数据流并不是和MVC在同一层次对系统的抽象，单向数据流表达的是MVC中View和Model之间数据的传递方式。所以这个问题更精确的表达应该是单向数据流和双向数据流之间的对比。</p>
+<p>双向数据流常见于Angular1.x等库中，指Model和View可以相互传递数据，且多个Model和View之间传递没有限制，其中传递是代码不需要显式设置监听事件以同步数据，而是Model和View相互绑定。</p>
+<p><img src="/img/article/20160727/pic7.jpg" alt=""></p>
+<p>所以双向数据流的优势是容易理解，在简单系统中开发非常方便；但是缺点是在复杂工程中，多个Model和View之间绑定，保持这种绑定关系极耗性能，经常会导致View无响应，性能急剧下降，而且因为存在多层绑定关系，导致View的Debug几乎不可能。基于以上原因，很多前端框架如angular2.0已经开始将单向数据流作为默认的绑定方式。</p>
+<h2 id="React原理"><a href="#React原理" class="headerlink" title="React原理"></a>React原理</h2><p>上面一直在说React是要解决什么问题的，现在说下React是怎么解决这些问题的？</p>
+<p>传统的web应用，操作DOM一般是直接更新操作或者是大面积页面刷新，这种操作是比较昂贵的。React为了尽量减少对DOM的操作，提供了一种与众不同的方式来更新DOM。就是DOM层之前增加一个轻量级的虚拟DOM，虚拟DOM是React抽象出来的描述真实DOM结构的对象，由虚拟DOM管理真实DOM的更新。</p>
+<p><img src="/img/article/20160727/pic8.jpg" alt=""></p>
+<p>虚拟DOM为保证高效的更新真实DOM，在更新之前增加diff算法计算出真实DOM的最小变更。</p>
+<p>在真实DOM树上的节点被称为元素，在虚拟DOM里被称为组件。组件是非常重要的，虚拟DOM是由组件组成。<br> component 的使用在 React 里极为重要, 因为 components 的存在让计算 DOM diff 更高效。</p>
+<p>state、props和render在组件中是非常重要的属性。state、props属性包含定义组件需要的数据。state表示组件当前的状态，当state发生变化时，组件会调用render方法重新渲染。相对于state，props是组件初始化需要的数据，React规约props在组件的生命周期内无法更改也不应改变。</p>
+<p>在组件的生命周期中，随着该组件的props和state发生改变，组件的DOM表现也会有相应的变化。一个组件即是一个状态机，对于特定地输入，组件总返回一致的输出。</p>
+<p>组件的生命周期可以分为三大过程。分别为：</p>
+<ul>
+<li>mounted<br>组件被渲染为真实的DOM元素插入浏览器的DOM结构的一个过程。</li>
+<li>update<br>已经处于mounted状态的组件被重新渲染的过程。</li>
+<li>unmounted<br>处于mounted状态的组件被从浏览器DOM结构中移除的过程。</li>
+</ul>
+<p>组件的完整生命周期如下：</p>
+<p><img src="/img/article/20160727/pic9.jpg" alt=""></p>
+<p>在组件的生命周期中有几个比较重要的方法：</p>
+<ul>
+<li>getDefaultProps<br>此方法返回的对象可以用于设置默认的props值。</li>
+<li>getInitialState<br>此方法用来初始化组件实例的state，在这个方法里可以访问组件的props变量。</li>
+<li>componentWillMount<br>此方法在组件首次渲染之前调用，是在调用render方法之前最后一次修改组件的机会。</li>
+<li>render<br>此方法会创建一个虚拟DOM，用来表示组件的输出。在组件中，render方法是必须的方法。render方法本身需要满足几点：<ul>
+<li>只能通过this.props和this.state访问组件的数据</li>
+<li>可以返回null，false或者任何React组件</li>
+<li>返回结果只能有一个顶级组件，不能返回一组元素</li>
+</ul>
+</li>
+<li>componentDidMount<br>此方法在render方法执行之后被调用，所以在方法中可以获取组件在真实DOM的节点。</li>
+<li>shouldComponentUpdate<br>此方法决定组件是否重新渲染，如果方法返回结果为false的话，则组件不会调用render方法重新渲染。</li>
+<li>componentWillUpdate<br>此方法和componentWillMount类似，渲染后的组件在接收到新的props或者state改变之后，组件会调用此方法。</li>
+<li>componentDidUpdate<br>组件因接收到新的props或者state改变导致的重新渲染之后，会调用此方法，所以可以在方法中访问或者修改真实DOM。</li>
+<li>componentWillUnmount<br>当组件从DOM中卸载后销毁，会调用此方法完成所有的清理和销毁工作。在conponentDidMount中添加的任务都需要在此方法中销毁，比如创建的定时器和事件监听器。</li>
+</ul>
+<h2 id="React示例"><a href="#React示例" class="headerlink" title="React示例"></a>React示例</h2><p>计时器 <a href="https://github.com/xeostream/react-demo/blob/master/timer.html" target="_blank" rel="noopener">github源码</a></p>
+<p><img src="/img/article/20160727/pic10.jpg" alt=""></p>
+<p>执行结果（原本想做个GIF，然而并不会做。。。）：<br><img src="/img/article/20160727/pic11.jpg" alt=""></p>
+<h2 id="React体验"><a href="#React体验" class="headerlink" title="React体验"></a>React体验</h2><ul>
+<li>使用单向数据流可以很好的隔绝业务，大大降低了单元测试的难度。</li>
+<li>尽量将React组件（Component）做到小，做到细，也就是尽量拆分React组件。</li>
+<li>基于数据驱动的方式开发，虽然开始的时候不容易理解，但确实可以减少前端的BUG。</li>
+<li>React更适合数据驱动的项目，不太适应交互比较多的项目。</li>
+</ul>
+<p>作者：王建双，就职于开鑫贷，主要负责Java Web方向的开发工作，也会根据兴趣涉猎前端相关的开发技术。目前在学习React和React Native、Spring高级特性。本人水平有限，欢迎各路大神就本文观点和出现的错误进一步的讨论。</p>
+<p><img src="/img/article/20160727/pic12.jpg" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2016/07/27/React一小时入门/" data-id="cjchdoyvh0007a8jkdv6ldtxr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/07/31/单元测试中mock框架的简单使用/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    单元测试中mock框架的简单使用
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/15/机器人编程大赛的沙盒源代码正式开放提供下载啦！/" class="title">机器人编程大赛的沙盒源代码正式开放提供下载啦！</a></p>
+                            <p class="item-date"><time datetime="2018-01-15T08:25:12.000Z" itemprop="datePublished">2018-01-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/12/玩游戏的逆天新姿势，屌炸天啊！！/" class="title">玩游戏的逆天新姿势，屌炸天啊！！</a></p>
+                            <p class="item-date"><time datetime="2018-01-12T08:24:44.000Z" itemprop="datePublished">2018-01-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/10/从一段臭名昭彰却又广为人知的代码说起……/" class="title">从一段臭名昭彰却又广为人知的代码说起……</a></p>
+                            <p class="item-date"><time datetime="2018-01-10T08:24:26.000Z" itemprop="datePublished">2018-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/开普勒鑫球全链路监控系统Talos正式开源/" class="title">开普勒鑫球全链路监控系统Talos正式开源</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T15:17:13.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/【纯干货分享】如何设计一个大数据全链路监控系统/" class="title">如何设计一个大数据全链路监控系统</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T15:07:13.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

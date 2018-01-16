@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>单元测试中mock框架的简单使用 | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="为什么要单元测试： 帮助理解需求：开发人员在编写测试代码的时候，可以更加清楚的了解代码的结构和业务逻辑。      尽早的发现bug：在&amp;lt;快速软件开发&amp;gt;这本书中指出，根据大量的研究数据证明：最后才修改一个bug的代价是在bug产生时修改它的代价大10倍。  提高局部代码的质量：保证局部代码质量，我们才能保证各个依赖你的其他模块的代码质量。      成本：这里说的测试成本是相对而言的，">
+<meta name="keywords" content="mock框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单元测试中mock框架的简单使用">
+<meta property="og:url" content="http://kplxq.github.io/2016/07/31/单元测试中mock框架的简单使用/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="为什么要单元测试： 帮助理解需求：开发人员在编写测试代码的时候，可以更加清楚的了解代码的结构和业务逻辑。      尽早的发现bug：在&amp;lt;快速软件开发&amp;gt;这本书中指出，根据大量的研究数据证明：最后才修改一个bug的代价是在bug产生时修改它的代价大10倍。  提高局部代码的质量：保证局部代码质量，我们才能保证各个依赖你的其他模块的代码质量。      成本：这里说的测试成本是相对而言的，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic1.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic2.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic3.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic4.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic5.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic6.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic7.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic8.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic9.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic10.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic11.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic12.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic13.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic14.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic15.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic16.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20160731/pic17.jpg">
+<meta property="og:updated_time" content="2018-01-16T09:18:11.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单元测试中mock框架的简单使用">
+<meta name="twitter:description" content="为什么要单元测试： 帮助理解需求：开发人员在编写测试代码的时候，可以更加清楚的了解代码的结构和业务逻辑。      尽早的发现bug：在&amp;lt;快速软件开发&amp;gt;这本书中指出，根据大量的研究数据证明：最后才修改一个bug的代价是在bug产生时修改它的代价大10倍。  提高局部代码的质量：保证局部代码质量，我们才能保证各个依赖你的其他模块的代码质量。      成本：这里说的测试成本是相对而言的，">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20160731/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/logo.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/logo.png" />
+            <h2 id="name">开普勒鑫球</h2>
+            <h3 id="title">有趣、好玩、开放、共享的技术社区</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                11
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                5
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-单元测试中mock框架的简单使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            单元测试中mock框架的简单使用
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/31/单元测试中mock框架的简单使用/">
+            <time datetime="2016-07-31T08:24:05.000Z" itemprop="datePublished">2016-07-31</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/mock框架/">mock框架</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="为什么要单元测试："><a href="#为什么要单元测试：" class="headerlink" title="为什么要单元测试："></a>为什么要单元测试：</h2><ul>
+<li><p><strong>帮助理解需求</strong>：开发人员在编写测试代码的时候，可以更加清楚的了解代码的结构和业务逻辑。    </p>
+</li>
+<li><p><strong>尽早的发现bug</strong>：在&lt;快速软件开发&gt;这本书中指出，根据大量的研究数据证明：最后才修改一个bug的代价是在bug产生时修改它的代价大10倍。</p>
+</li>
+<li><p><strong>提高局部代码的质量</strong>：保证局部代码质量，我们才能保证各个依赖你的其他模块的代码质量。    </p>
+</li>
+<li><p><strong>成本</strong>：这里说的测试成本是相对而言的，比如:对于集成测试的复杂环境部署，单元测试显得相对简单点。笔者简单了解了下笔者公司的开发写个单元测试平均在0.5H左右。</p>
+</li>
+<li><p><strong>单元测试可以被复用</strong>：一劳永逸。一些固化的功能模块，只要我们写好单元测试后，以后基本不需要调整，为实现单元测试自动化打好了基础。</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="当前单元测试遇到的问题："><a href="#当前单元测试遇到的问题：" class="headerlink" title="当前单元测试遇到的问题："></a>当前单元测试遇到的问题：</h2><p><strong>本地测试代价大</strong>：笔者所在公司有将近10个系统，有时候开发一个简单的功能，如果不发布到集成环境测试，在本地做单元测试至少需要启动2-3个系统才可以跑起来，经常IDE卡死。而发布到集成环境测试则耗时较长且调式麻烦。</p>
+<p><strong>复杂性</strong>：开发需要关心各种环境配置项的值，才可以正确的启动系统做单元测试，如：证书、密钥、验签等安全配置。特别是像笔者所在的这种金融领域，各种安全配置、银行调用URL配置。</p>
+<p><strong>不可控性</strong>：跨公司、跨部门、跨系统的接口调用，导致单元测试的效率和结果不可控。</p>
+<p><strong>异常分支测试</strong>：笔者做的金融系统，有很多和银行交互的接口，有的时候需要连接一下银行的测试环境测试下“难于上青天啊”(小银行会简单的配合你下，大银行根本不鸟你，给你一个地址你自己玩去吧)，更别说给你返回个异常数据了，连正常的数据都返回不了。另外比如：并发、系统压力测试(有的时候会选择硬编码将调用外部系统的地方写死，压力测试后再改回来上线，但是容易漏改、耗费人力、不能复用)，还有当前很流行的各种分布式、大数据的单元测试都比较困难。</p>
+<h2 id="常见的解决方案"><a href="#常见的解决方案" class="headerlink" title="常见的解决方案"></a>常见的解决方案</h2><p>下面笔者简单分析下上述问题常见的解决方案(可能有更好的方案，这里笔者还没有想到,可以一起交流学习)：</p>
+<ul>
+<li><p>问题1-solve.    <strong>部署一套稳定的环境</strong>：专门给开发人员单元测试连接调用，但是也存在一些问题，比如我们经常发现使用dubbo这样的RPC调用框架，会出现消费者和服务者混乱，因为共用一套环境大家都把自己的服务注册上去了。数据库数据会被别的开发修改，调式半天发现数据被别的开发修改了，这种情况痛苦的一比。</p>
+<pre><code>最理想的是一人一套环境，只有财大气粗的公司如此了。
+</code></pre></li>
+<li><p>问题2-solve.    <strong>统一开发目录和配置项</strong>：对于安全配置的证书这些问题比较好解决，所有开发共用一套单元测试环境变量配置，证书路径和url都统一。不同操作系统不同模板</p>
+</li>
+<li><p>问题3-solve.    <strong>万年难</strong>：问题三这个就比较难搞定了，例如你正在测试自己的case，突然你调用的B部门的服务出问题了，你会经常听到类似：我擦，服务被关闭了？他们在发布新版本？返回的数据不对啊、怎么用户不存在？我靠，他们又刷库了？。一等就是千万年，无法忍受。</p>
+<pre><code>当然笔者也曾经试着将这些接口调用全部写死了。直接new一个结果返回，然而细       心的人提交代码的时候可能会检查下，不细心的则深挖坑啊。。。。。。
+</code></pre></li>
+<li><p>问题4-solve.    <strong>写死返回结果</strong>：在需要异常场景的时候，注释掉调用代码，写死返回结果。基本和3类似。</p>
+<pre><code>后来基于3和4的解决思路，慢慢的就演变出了一种专门解决这些场景的框架：Mock框架。这也符合笔者一直崇尚的理念：**业务驱动开发，有需求就会诞生解决方案**。
+</code></pre></li>
+</ul>
+<h2 id="Mock框架初接触"><a href="#Mock框架初接触" class="headerlink" title="Mock框架初接触"></a>Mock框架初接触</h2><p>笔者这里简单的说下自己的mock实现，如果有不足的地方还希望各路大神多多指教，相互学习成长。  </p>
+<p><strong>选择TestNG</strong>: 首先做单元测试当然少不了junit或者testng了(也有NB的公司有自己的测试框架，这些公司呢想必也都是业务驱动逼迫自己去搞的)，笔者这里就不阐述着两个测试框架的区别了，网上各种帖子，总之适合自己、用的熟练、懂得原理就可以。那笔者这里选择的是testng。</p>
+<p><strong>选择Jmockit作为mock框架</strong>：另外一个就是mock框架的选型。当前的江湖中，mock框架已经有很多门派了，但是万变不离其宗，他们要么是JDK的动态代理、要不就是CGLIB的动态代理生成新的类。比如：easymock 、mockito、jmock等已经风生水起了，但是笔者认为这样的实现原理决定了它的局限性，比如：final方法、构造方法、不能被覆写的方法这些就不能被mock了。</p>
+<p>思路到这里暂停一些，我们来回忆下最初的我们：<br>  记得很多年前，我们在刚学java的时候，大神们就教导我们学习java，首先我们得知道一个java文件是怎么最终被机器执行的。</p>
+<p><img src="/img/article/20160731/pic1.jpg" alt=""></p>
+<pre><code>我们写了一个Hello.java 然后通过cmd命令javac Hello.java经过javac的编译器后完成了对代码的词法分析、语法分析、抽象语法树，然后得到一个Hello.class,这部分是在JVM外面的完成的。
+然后由JVM类加载到内存中(这里笔者就不叙述加载的过程了，网上可以搜到很多相关文章，再说笔者自己了解的也是皮毛)。到JVM以后，然后JVM翻译成机器码执行。
+有了这样的背景知识，再让我们思考如何mock一个类，我们自然的会想到的去修改这个类中在JVM中的字节码，这样就没有什么不可以mock的了。我们知道从JDK1.5开始就提供了java.lang.instrument包，其中提供了修改JVM中已加载类的重定义入口即java.lang.instrument.Instrumentation#redefineClasses(ClassDefinition...)方法。
+那当前江湖中有没有这样的一个框架可以和我们的思路很符合呢？笔者google到了这样的一种框架，那就是JMockit(笔者一直认为框架只要适合自己能够满足业务场景就好，无需过多的去追求时髦)。
+</code></pre><h2 id="Jmockit简单介绍："><a href="#Jmockit简单介绍：" class="headerlink" title="Jmockit简单介绍："></a>Jmockit简单介绍：</h2><p>   JMockit：是googlecode上的一个项目衍生而来，现在已经有了自己的<a href="http://jmockit.org" target="_blank" rel="noopener">独立门户网站</a>，官网介绍其是基于asm库来修改java的字节码从而达到篡改类的行为的mock工具。通过JDK提供的类重定义方法：java.lang.instrument.Instrumentation#redefineClasses(ClassDefinition…)作为修改JVM中类的定义的入口。</p>
+<p>这样mock框架就定了。是时候我们设计下我们蓝图了。</p>
+<h2 id="融合TestNG和JMockit"><a href="#融合TestNG和JMockit" class="headerlink" title="融合TestNG和JMockit"></a>融合TestNG和JMockit</h2><ul>
+<li>框架设计：</li>
+</ul>
+<p><img src="/img/article/20160731/pic2.jpg" alt=""></p>
+<ul>
+<li>AbstractMockBase：mock类的基类，为以后扩展预留。</li>
+<li>TestAMock: 具体的Mock实现类。</li>
+<li>mockContext.xml：所有的mock类集中于xml中进行管理，然后写了一个JMockitBeanFactory加载这些类。方便以后统计、修改。</li>
+<li>JMockitBase：所有需要用到mock的单元测试类继承此类，提供getMockBean方法。</li>
+<li>AbstractDataProvider：提供从xml读取单元测试源数据入口。</li>
+<li>TestNGIInvokedMethodListener：testng中的IInvokedMethodListener监听接口实现，完成MockInfo注解的实现。</li>
+</ul>
+<p><strong>注</strong>：JMockit是通过类TestNGRunnerDecorator实现Testng的两个接口：IInvokedMethodListener，IExecutionListener来实现和TestNG交互的.。</p>
+<p>另外我们mock spring容器中bean的时候，一定要拿到被代理前的原始类。方法如下：</p>
+<p><img src="/img/article/20160731/pic3.jpg" alt=""></p>
+<h2 id="编码实战"><a href="#编码实战" class="headerlink" title="编码实战"></a>编码实战</h2><p>版本<br>     Testng：6.8<br>     Jmockit：1.21<br>  其他的Spring依赖各位随意吧.</p>
+<h3 id="场景一-mock原有的接口返回"><a href="#场景一-mock原有的接口返回" class="headerlink" title="场景一: mock原有的接口返回"></a>场景一: mock原有的接口返回</h3><p>  笔者这里以金融系统中查询工作日这样的接口举例，通常这种查询我们都会调用一个单独的统一辅助系统去查询某天是否是工作日，然后依次来判断下一步的逻辑。但是笔者希望他永远返回是工作日，且不用配置远程调用的任何信息。(最直接的就是在调用出修改代码，写死返回值，这样虽然可以解决问题但是就像前面笔者说的，复用性不强且容易出问题)</p>
+<p>下面笔者列举出Mock主要的代码实现,完整代码笔者会稍后上传到github上。</p>
+<h4 id="a-工作日查询接口"><a href="#a-工作日查询接口" class="headerlink" title="a. 工作日查询接口"></a>a. 工作日查询接口</h4><p><img src="/img/article/20160731/pic4.jpg" alt=""></p>
+<h4 id="b-工作日查询接口实现"><a href="#b-工作日查询接口实现" class="headerlink" title="b. 工作日查询接口实现"></a>b. 工作日查询接口实现</h4><p><img src="/img/article/20160731/pic5.jpg" alt=""><br>编写WorkDayAssistant的mock类:<br>空父类，以后扩展用<br><img src="/img/article/20160731/pic6.jpg" alt=""></p>
+<p>Mock类(类的部分mock)(Jmock分类局部mock和全部mock)<br><img src="/img/article/20160731/pic7.jpg" alt=""><br>基金购买接口<br><img src="/img/article/20160731/pic8.jpg" alt=""><br>基金购买接口实现<br><img src="/img/article/20160731/pic9.jpg" alt=""></p>
+<h4 id="c-自定义MockInfo注解-用于定义当前test-method-运行时需要哪些bean被mock"><a href="#c-自定义MockInfo注解-用于定义当前test-method-运行时需要哪些bean被mock" class="headerlink" title="c. 自定义MockInfo注解-用于定义当前test method 运行时需要哪些bean被mock"></a>c. 自定义MockInfo注解-用于定义当前test method 运行时需要哪些bean被mock</h4><p><img src="/img/article/20160731/pic10.jpg" alt=""></p>
+<h4 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h4><p><img src="/img/article/20160731/pic11.jpg" alt=""></p>
+<p>运行结果：<br><img src="/img/article/20160731/pic12.jpg" alt=""></p>
+<h3 id="场景二-从xml获取数据源"><a href="#场景二-从xml获取数据源" class="headerlink" title="场景二: 从xml获取数据源"></a>场景二: 从xml获取数据源</h3><p> 对于一些模块和功能已经固化的代码，我们希望用固定的数据在每个迭代版本中都可以得到固定的结果，笔者这里拿金融系统中常见的绑卡场景为例。</p>
+<h4 id="定义xml格式"><a href="#定义xml格式" class="headerlink" title="定义xml格式"></a>定义xml格式</h4><p><img src="/img/article/20160731/pic13.jpg" alt=""></p>
+<h4 id="DataProvider编写"><a href="#DataProvider编写" class="headerlink" title="DataProvider编写"></a>DataProvider编写</h4><p><img src="/img/article/20160731/pic14.jpg" alt=""></p>
+<h4 id="数据获取使用-这里取数据比较恶心，要从map中get，笔者计划有时间改成JavaBean字段映射"><a href="#数据获取使用-这里取数据比较恶心，要从map中get，笔者计划有时间改成JavaBean字段映射" class="headerlink" title="数据获取使用(这里取数据比较恶心，要从map中get，笔者计划有时间改成JavaBean字段映射)"></a>数据获取使用(这里取数据比较恶心，要从map中get，笔者计划有时间改成JavaBean字段映射)</h4><p><img src="/img/article/20160731/pic15.jpg" alt=""></p>
+<h4 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h4><p><img src="/img/article/20160731/pic16.jpg" alt=""></p>
+<p>然已经取到数据了，那后面的测试和结果校验随意吧。</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>当前笔者只是简单介绍了框架的简单使用和集成，后续笔者将抽时间将Jmockit的原理、详细使用方法、当期框架设计优化改进的地方再发表出来和大家一起学习交流。</p>
+<p>作者：猎狐，就职于开鑫金服，主要负责Java Web方向的开发工作。</p>
+<p><img src="/img/article/20160731/pic17.jpg" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2016/07/31/单元测试中mock框架的简单使用/" data-id="cjchdoyvs000da8jklllsa43v" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/12/15/Talos接入使用说明/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Talos接入使用说明
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/07/27/React一小时入门/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">React一小时入门</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/15/机器人编程大赛的沙盒源代码正式开放提供下载啦！/" class="title">机器人编程大赛的沙盒源代码正式开放提供下载啦！</a></p>
+                            <p class="item-date"><time datetime="2018-01-15T08:25:12.000Z" itemprop="datePublished">2018-01-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/12/玩游戏的逆天新姿势，屌炸天啊！！/" class="title">玩游戏的逆天新姿势，屌炸天啊！！</a></p>
+                            <p class="item-date"><time datetime="2018-01-12T08:24:44.000Z" itemprop="datePublished">2018-01-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/10/从一段臭名昭彰却又广为人知的代码说起……/" class="title">从一段臭名昭彰却又广为人知的代码说起……</a></p>
+                            <p class="item-date"><time datetime="2018-01-10T08:24:26.000Z" itemprop="datePublished">2018-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/开普勒鑫球全链路监控系统Talos正式开源/" class="title">开普勒鑫球全链路监控系统Talos正式开源</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T15:17:13.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/12/15/【纯干货分享】如何设计一个大数据全链路监控系统/" class="title">如何设计一个大数据全链路监控系统</a></p>
+                            <p class="item-date"><time datetime="2017-12-15T15:07:13.000Z" itemprop="datePublished">2017-12-15</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
