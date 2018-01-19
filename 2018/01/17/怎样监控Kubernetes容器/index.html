@@ -3,18 +3,27 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档: 2017 | 开普勒鑫球</title>
+    <title>怎样监控Kubernetes容器 | 开普勒鑫球</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="dapper talos">
-<meta property="og:type" content="website">
-<meta property="og:title" content="开普勒鑫球">
-<meta property="og:url" content="http://kplxq.github.io/archives/2017/index.html">
+    <meta name="description" content="怎样监控Kubernetes容器一、容器的运行方式与VM和HOST的差异Kubernetes是现在最流行的容器编排系统，容器与VM和HOST有着显著不同。怎样对k8s平台上的容器进行监控？首先需要注意容器的运行方式与VM和HOST的不同：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="怎样监控Kubernetes容器">
+<meta property="og:url" content="http://kplxq.github.io/2018/01/17/怎样监控Kubernetes容器/index.html">
 <meta property="og:site_name" content="开普勒鑫球">
-<meta property="og:description" content="dapper talos">
+<meta property="og:description" content="怎样监控Kubernetes容器一、容器的运行方式与VM和HOST的差异Kubernetes是现在最流行的容器编排系统，容器与VM和HOST有着显著不同。怎样对k8s平台上的容器进行监控？首先需要注意容器的运行方式与VM和HOST的不同：">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic1.png">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic2.png">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic3.png">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic4.png">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic5.png">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic6.png">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180117/pic7.png">
+<meta property="og:updated_time" content="2018-01-19T04:47:23.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开普勒鑫球">
-<meta name="twitter:description" content="dapper talos">
+<meta name="twitter:title" content="怎样监控Kubernetes容器">
+<meta name="twitter:description" content="怎样监控Kubernetes容器一、容器的运行方式与VM和HOST的差异Kubernetes是现在最流行的容器编排系统，容器与VM和HOST有着显著不同。怎样对k8s平台上的容器进行监控？首先需要注意容器的运行方式与VM和HOST的不同：">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20180117/pic1.png">
     
 
     
@@ -206,200 +215,169 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-怎样监控Kubernetes容器" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/12/15/开普勒鑫球全链路监控系统Talos正式开源/">开普勒鑫球全链路监控系统Talos正式开源</a>
+        <h1 class="article-title" itemprop="name">
+            怎样监控Kubernetes容器
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/开普勒鑫球全链路监控系统Talos正式开源/">
-            <time datetime="2017-12-15T15:17:13.000Z" itemprop="datePublished">2017-12-15</time>
+        <a href="/2018/01/17/怎样监控Kubernetes容器/">
+            <time datetime="2018-01-17T03:53:50.000Z" itemprop="datePublished">2018-01-17</time>
         </a>
     </div>
 
 
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                        
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/12/15/【纯干货分享】如何设计一个大数据全链路监控系统/">如何设计一个大数据全链路监控系统</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="怎样监控Kubernetes容器"><a href="#怎样监控Kubernetes容器" class="headerlink" title="怎样监控Kubernetes容器"></a>怎样监控Kubernetes容器</h2><h3 id="一、容器的运行方式与VM和HOST的差异"><a href="#一、容器的运行方式与VM和HOST的差异" class="headerlink" title="一、容器的运行方式与VM和HOST的差异"></a>一、容器的运行方式与VM和HOST的差异</h3><p>Kubernetes是现在最流行的容器编排系统，容器与VM和HOST有着显著不同。怎样对k8s平台上的容器进行监控？首先需要注意容器的运行方式与VM和HOST的不同：</p>
+<a id="more"></a>
+<ol>
+<li><p>运行实例从宏观层面迁移到微观层面<br>容器运行在私有网络中，通常情况下与外部网络隔离。怎样从外部网络进入到容器私有网络、获取容器的监控数据？</p>
+</li>
+<li><p>运行实例从静态、长生命周期转变成动态、短生命周期<br>HOST和VM一般是静态IP地址，一旦开机、长期运行。而容器的IP是动态分配的，其创建、销毁、扩容、缩容非常频繁。如何及时发现新创建的容器、获取到它们的监控数据、并在仪表盘上恰当的展现出来？</p>
+</li>
+</ol>
+<h3 id="二、容器监控方案概述"><a href="#二、容器监控方案概述" class="headerlink" title="二、容器监控方案概述"></a>二、容器监控方案概述</h3><p>为了解决上述问题，kubernetes、promethues、influxdata等开源组织相继发布了一些容器监控工具和方案。例如：kubernetes 的 heapster+influxdb+grafana，prometheus的prometheus+alertmanager，influxdata的telegraf+influxdb+kapacitor。</p>
+<p>我采用的是第一种，即： heapster+influxdb+grafana，实现简单、效果较好。</p>
+<p>其中，heapster是k8s容器状态的收集、导出工具，influxdb是一种时序数据库，grafana是一种数据展示和报警系统。</p>
+<p> <img src="/img/article/20180117/pic1.png" alt=""></p>
+<p>heapster能导出当前时间点的所有容器的状态信息，解决了容器监控信息的采集和导出问题；grafana是功能强大的数据展示和报警工具，它的展示系统支持变量、模板、正则匹配、标签等功能，能把瞬息万变的容器信息有效组织、展示出来，报警系统支持多种方式、还可以基于webhook自己开发，实现短信报警等功能。</p>
+<h3 id="三、容器监控部署概述"><a href="#三、容器监控部署概述" class="headerlink" title="三、容器监控部署概述"></a>三、容器监控部署概述</h3><p>（由于字数限制，不详述，具体请参考官方文档；所有组件都基于容器部署）</p>
+<ol>
+<li>部署influxdb<br><a href="https://github.com/influxdata/influxdb" target="_blank" rel="noopener">https://github.com/influxdata/influxdb</a></li>
+<li>部署heapster<br><a href="https://github.com/kubernetes/heapster/tree/master/deploy" target="_blank" rel="noopener">https://github.com/kubernetes/heapster/tree/master/deploy</a><br>command加sink参数，包含influxdb的地址、用户名、密码，例如：<br>–sink=influxdb:<a href="http://influxdb.default:8086?db=heapster&amp;user=heapster&amp;pw=1234" target="_blank" rel="noopener">http://influxdb.default:8086?db=heapster&amp;user=heapster&amp;pw=1234</a></li>
+<li><p>部署grafana<br><a href="https://github.com/grafana/grafana" target="_blank" rel="noopener">https://github.com/grafana/grafana</a><br>部署后请设置数据源datasource，加入influxdb。</p>
+<h3 id="四、设置仪表盘"><a href="#四、设置仪表盘" class="headerlink" title="四、设置仪表盘"></a>四、设置仪表盘</h3><p>Grafana的仪表盘也就是监控数据的展示界面，可以自己设计，还可以导出共享给别人。我设计了一个容器监控的仪表盘，共享在grafana网站上，地址是：<br><a href="https://grafana.com/dashboards/3649" target="_blank" rel="noopener">https://grafana.com/dashboards/3649</a></p>
+<p><img src="/img/article/20180117/pic2.png" alt=""><br><img src="/img/article/20180117/pic3.png" alt=""></p>
+</li>
+</ol>
+<p>在namespace下拉框可以选择k8s容器的命名空间，在pod_name下拉框可以选择容器的匹配名称（前面几个字符或者全名都可以）。</p>
+<h3 id="五、建立容器报警"><a href="#五、建立容器报警" class="headerlink" title="五、建立容器报警"></a>五、建立容器报警</h3><p>我共享的仪表盘含有两个变量：namespace和pod_name，这样的仪表盘叫：模板。Grafana目前不支持在模板里创建报警。为了创建报警，我们需要再建一个不带变量的仪表盘，然后在时序图的Alert菜单里设置报警，设置报警阀值、通道、内容等信息：</p>
+<p>  <img src="/img/article/20180117/pic4.png" alt=""><br>  <img src="/img/article/20180117/pic5.png" alt=""></p>
+<h3 id="六、建立报警一览图"><a href="#六、建立报警一览图" class="headerlink" title="六、建立报警一览图"></a>六、建立报警一览图</h3><p>Grafana自带一个报警管理页面：</p>
+<p>  <img src="/img/article/20180117/pic6.png" alt=""></p>
+<p>我们可以设计一个更清楚的报警一览图，可参考我共享的模板，地址是：<br><a href="https://grafana.com/dashboards/3489" target="_blank" rel="noopener">https://grafana.com/dashboards/3489</a></p>
+<p>  <img src="/img/article/20180117/pic7.png" alt=""></p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/【纯干货分享】如何设计一个大数据全链路监控系统/">
-            <time datetime="2017-12-15T15:07:13.000Z" itemprop="datePublished">2017-12-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/12/15/部署文档/">部署文档</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/部署文档/">
-            <time datetime="2017-12-15T14:59:56.000Z" itemprop="datePublished">2017-12-15</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
-    </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/12/15/Kafka部署文档/">Kafka部署文档</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/Kafka部署文档/">
-            <time datetime="2017-12-15T13:01:57.000Z" itemprop="datePublished">2017-12-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/12/15/Elasticsearch部署文档/">Elasticsearch部署文档</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/Elasticsearch部署文档/">
-            <time datetime="2017-12-15T11:57:07.000Z" itemprop="datePublished">2017-12-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/12/15/Talos接入使用说明/">Talos接入使用说明</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/12/15/Talos接入使用说明/">
-            <time datetime="2017-12-15T11:14:07.000Z" itemprop="datePublished">2017-12-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/talos/">talos</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
 </div>
+
+    <a data-url="http://kplxq.github.io/2018/01/17/怎样监控Kubernetes容器/" data-id="cjclg3qm7000flgjki7jhb2wg" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/01/15/机器人编程大赛的沙盒源代码正式开放提供下载啦！/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">机器人编程大赛的沙盒源代码正式开放提供下载啦！</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
 </section>
             
                 
