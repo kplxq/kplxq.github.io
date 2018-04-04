@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>SpringBoot2.0之WebFlux开发实战（含源码） | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="15分钟和你一起聊一聊2.2万星超热门开源项目Spring Boot 2.0之WebFlux开发，从技术介绍、开发教程、集成案例演示到示例源代码，一网打尽。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot2.0之WebFlux开发实战（含源码）">
+<meta property="og:url" content="http://kplxq.github.io/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="15分钟和你一起聊一聊2.2万星超热门开源项目Spring Boot 2.0之WebFlux开发，从技术介绍、开发教程、集成案例演示到示例源代码，一网打尽。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic1.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic2.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic3.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic4.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic5.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic6.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic7.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic8.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic9.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic10.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic11.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic12.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic13.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic14.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic15.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic16.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic17.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic18.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic19.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic20.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic21.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic22.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic23.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180403/pic24.jpg">
+<meta property="og:updated_time" content="2018-04-04T06:25:36.357Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot2.0之WebFlux开发实战（含源码）">
+<meta name="twitter:description" content="15分钟和你一起聊一聊2.2万星超热门开源项目Spring Boot 2.0之WebFlux开发，从技术介绍、开发教程、集成案例演示到示例源代码，一网打尽。">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20180403/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/wx_gzh.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/wx_gzh.jpg" />
+            <h2 id="name">聊技术，谈人生</h2>
+            <h3 id="title">欢迎关注微信公众号</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                17
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                8
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="spring-SpringBoot2-0之WebFlux开发实战（含源码）" class="article article-type-spring" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            SpringBoot2.0之WebFlux开发实战（含源码）
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/">
+            <time datetime="2018-04-03T06:06:55.000Z" itemprop="datePublished">2018-04-03</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><img src="/img/article/20180403/pic1.jpg" alt=""></p>
+<p>15分钟和你一起聊一聊2.2万星超热门开源项目Spring Boot 2.0之WebFlux开发，从技术介绍、开发教程、集成案例演示到示例源代码，一网打尽。</p>
+<a id="more"></a>
+<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="Spring-Boot2-0"><a href="#Spring-Boot2-0" class="headerlink" title="Spring Boot2.0"></a>Spring Boot2.0</h3><p>北京时间3月1日，Spring Boot 2.0正式发布Release版本。作为Spring生态中重要的开源项目,Spring Boot旨在帮助开发者更容易的创建基于Spring的应用程序和服务。经历了4年的发展，Spring Boot已经拥有了22000多star，16000次Commits，贡献者超过400多名的超热门开源项目。<br>其中刚发布的2.0版本是自2014年4月1日发布的1.0版本以来第一次重大修订，也是首个提供对Spring Framework 5.0支持的GA稳定版本，2.0带来了很多新的特性<br>✓基于Spring 5构建的Spring Boot 2.0，通过使用Spring WebFlux 提供了响应式Web编程支持；<br>✓基于Java 8（最低标准），支持Java 9；<br>✓支持HTTP/2;<br>Spring Boot的Web容器选择中Tomcat、Undertow和Jetty均已支持HTTP/2。HTTP/2较HTTP/1.1在性能上有显著提升，页面加载时间降低了50%，详见<a href="https://mp.weixin.qq.com/s/MLiQYTTvBQBDHa9T4mlWUg" target="_blank" rel="noopener">Java 9和Spring Boot2.0纷纷宣布支持的HTTP/2到底是什么</a>。<br>其余新特性不在此赘述，详见<a href="https://mp.weixin.qq.com/s/pE1ZMszzAwDz8WyibTkIig" target="_blank" rel="noopener">Spring Boot 2.0 Release Notes</a>。</p>
+<h3 id="Spring-WebFlux"><a href="#Spring-WebFlux" class="headerlink" title="Spring WebFlux"></a>Spring WebFlux</h3><p>Spring WebFlux是一个非阻塞的函数式Reactive Web框架，可以用来构建异步的、非阻塞的、事件驱动的服务，在伸缩性方面表现非常好。名称中的Flux来源于Reactor中的类Flux。</p>
+<p><img src="/img/article/20180403/pic2.jpg" alt="Spring WebFlux与Spring MVC框架对比（一）"></p>
+<p>众所周知Spring MVC是同步阻塞的IO模型，资源浪费相对比较严重，当我们在处理一个耗时的任务时，例如上传一个较大的文件时，服务器的线程一直在等待接收文件，这期间什么也做不了，等到文件接收完毕可能又要写入磁盘，写入的过程线程又只能在那等待，非常浪费资源。而Spring WebFlux是这样做的，线程发现文件还没接收好，先去做其他事情，当文件接收完毕后通知该线程来处理，后续写入磁盘完毕后再通知该线程来处理，通过异步非阻塞机制节省了系统资源，极大的提高了系统的并发量。因此对于微服务下的IO密集型的Service来说，WebFlux是一个不错的选择。</p>
+<p><img src="/img/article/20180403/pic3.jpg" alt=""></p>
+<p>左边是传统基于Servlet的Spring Web MVC框架，右边是Spring Framework 5.0引入的基于Reactive Streams的Spring WebFlux框架，从上到下依次是Router Functions、WebFlux和Reactive Streams三个新的组件。<br>● Router Functions：对应@Controller、@RequestMapping等标准的Spring MVC注解，提供了一套函数式编程的API，用于创建Router、Handler和Filter。<br>● WebFlux：核心组件，用于协调上下游各个组件提供响应式编程的支持。<br>● Reactive Streams：一种支持Backpressure的异步数据流处理标准，主流实现有RxJava和Reactor，Spring、WebFlux默认集成的是Reactor。Backpressure是一种反馈机制，当数据的发布速度超过处理速度时，消费者需要决定缓存还是丢弃，在响应式编程中，决定权交回给了发布者，消费者只需根据自身处理能力向发布者请求相应数量的数据。<br>●Web容器：Spring WebFlux既支持Tomcat、Jetty等传统容器（前提是支持Servlet3.1+）,又支持Netty、Undertow等异步容器。<br>只能运行在Servlet 3.1+容器上，是因为3.1规范支持异步处理，该功能主要针对业务处理较耗时的情况，可以减少服务器资源占用，提高并发处理速度。</p>
+<h2 id="Spring-WebFlux实战"><a href="#Spring-WebFlux实战" class="headerlink" title="Spring WebFlux实战"></a>Spring WebFlux实战</h2><h3 id="WebFlux工程创建"><a href="#WebFlux工程创建" class="headerlink" title="WebFlux工程创建"></a>WebFlux工程创建</h3><p>本文默认开发环境是JDK8，开发工具是IntelliJ IDEA。<br>下面我们基于Spring Boot 2.0创建一个WebFlux工程，操作步骤非常简单：<br>1)点击Create New Project,创建一个新的项目；</p>
+<p><img src="/img/article/20180403/pic4.jpg" alt=""></p>
+<p>2)选择Spring Initializr,并配置JDK版本为1.8，Initializr Service UR按默认配置为<a href="https://start.spring.io" target="_blank" rel="noopener">https://start.spring.io</a>;</p>
+<p><img src="/img/article/20180403/pic5.jpg" alt=""></p>
+<p>3)在metadata页配置工程包名等信息，其中type项目构建方式选择默认值，使用maven进行项目构建；</p>
+<p><img src="/img/article/20180403/pic6.jpg" alt=""></p>
+<p>4)在Dependencies页，我们先将Spring Boot版本设置为2.0.0，可以看到下方有很多选项可以选择，每个选项代表一个组件，这里选择“Web”-&gt;“Reactive Web”组件。可以看到下方提示，Reactive Web development with Netty and Spring WebFlux，即通过Reactive Web构建一个WebFlux应用服务；</p>
+<p><img src="/img/article/20180403/pic7.jpg" alt=""></p>
+<p>5)最后配置下工程名称和项目路径，即完成了Spring WebFlux应用的创建。</p>
+<p><img src="/img/article/20180403/pic8.jpg" alt=""></p>
+<p>默认的demo工程pom中只包括webflux和reactor等组件依赖。</p>
+<h2 id="Hello-World应用开发"><a href="#Hello-World应用开发" class="headerlink" title="Hello World应用开发"></a>Hello World应用开发</h2><p>下面通过编写Handler和Router Functions来实现hello world程序。<br>1)编写Hello world handler，该类相当于Spring Web中的Service bean；</p>
+<p><img src="/img/article/20180403/pic9.jpg" alt=""></p>
+<p>2)将Hello world handler注册到路由上，类似于Spring Web中的Controller类的创建。除了新的Router Functions接口，Spring WebFlux同时支持使用老的Spring MVC注解声明Reactive Controller。</p>
+<p><img src="/img/article/20180403/pic10.jpg" alt=""></p>
+<p>3)接着运行DemoApplication的main方法，即完成了服务启动，这里默认采用了Netty作为reactor的底层容器启动。</p>
+<p><img src="/img/article/20180403/pic11.jpg" alt=""></p>
+<p>最后访问<a href="http://127.0.0.1:8080/hello，返回hello" target="_blank" rel="noopener">http://127.0.0.1:8080/hello，返回hello</a> world即表示服务启动和访问成功。</p>
+<h2 id="注册登录应用开发"><a href="#注册登录应用开发" class="headerlink" title="注册登录应用开发"></a>注册登录应用开发</h2><p>需要注意目前支持reactive编程的数据库只有MongoDB，Redis，Cassandra，Couchbase，而JDBC与JPA的事务是基于阻塞IO模型的，并不是自然支持reactive编程风格，需要等待Spring Data Reactive升级IO模型才能支持相关数据库事务的使用。</p>
+<p><img src="/img/article/20180403/pic12.jpg" alt="Spring WebFlux与Spring MVC框架对比（二）"></p>
+<p>这里以Redis作为数据库，实现一个简单的用户注册登录功能。<br>1)首先配置Spring Data Reactive Redis，默认指向本地6379端口的Redis；</p>
+<p><img src="/img/article/20180403/pic13.jpg" alt=""></p>
+<p>2)编写用户注册登录handler,主要通过RedisConnection进行数据入库和查询操作，并将业务处理结果以Json格式进行返回。</p>
+<p><img src="/img/article/20180403/pic14.jpg" alt=""></p>
+<p><img src="/img/article/20180403/pic15.jpg" alt=""></p>
+<p>Uri中的参数可以通过ServerRequest.bodyToMono来获取。<br>返回的类型Mono可以通过ServerResponse来创建，主要包括以下几步：<br>a) 状态码方法，可以使用现成的也可以自定义，例如成功的状态码：</p>
+<p><img src="/img/article/20180403/pic16.jpg" alt=""></p>
+<p>b) ContentType(MediaType var1)返回的内容类型是MediaType类型；<br>c) 最后是返回的内容：</p>
+<p><img src="/img/article/20180403/pic17.jpg" alt=""></p>
+<p>一般常用body()来放入返回的内容，如使用BodyInserters的构建方法fromObject()。<br>3)添加注册登录路由,将url路由给具体的handler来进行处理;</p>
+<p><img src="/img/article/20180403/pic18.jpg" alt=""></p>
+<p>路由关系创建主要通过RouterFunctions来创建route,</p>
+<p><img src="/img/article/20180403/pic19.jpg" alt=""></p>
+<pre><code>其中RequestPredicate和HandlerFunction都是函数式接口，HandlerFunction接受一个ServerResponse的子类返回Mono,可以把这个对象认为是实际处理逻辑的部分。
+</code></pre><p>下面我们来验证下程序的运行情况：<br>1)首先运行服务，然后通过postman发送用户注册请求；<br><img src="/img/article/20180403/pic20.jpg" alt=""><br>2)发送注册请求后，除了前台返回{“message”:”successful”},同时可以查看Redis中保存的注册信息；</p>
+<p><img src="/img/article/20180403/pic21.jpg" alt=""></p>
+<p>3)接着用刚注册的信息发起登录请求，可以看出返回结果为登录成功。</p>
+<p><img src="/img/article/20180403/pic22.jpg" alt=""></p>
+<p>至此即完成了一个简单的基于Spring WebFlux和Redis的用户注册登录功能开发。</p>
+<h2 id="分析总结"><a href="#分析总结" class="headerlink" title="分析总结"></a>分析总结</h2><p>通过以上介绍，可以看出基于SpringBoot进行WebFlux开发即简单又高效。下面对WebFlux中几个关键语法点进行介绍：<br>首先简单说下Reactor的两个关键概念，Mono和Flux是Reactor中的流数据类型，Mono是一个用来发送0或者单值数据的发布器，Flux可以用来发送0到 N 个值。它们表示在订阅这些发布服务时发送的数值流。<br>如下图中getUserById()返回一个Mono<user>表示其在数据可用的情况下发送0个或者单个用户，getUsers()返回一个用户列表的Flux实例，表示其发送0到多个用户数据。</user></p>
+<p><img src="/img/article/20180403/pic23.jpg" alt=""></p>
+<p>上文提到的handler处理类相当于服务bean,一般用来编写业务功能，其中返回的ServerResponse类似Spring Web中的ResponseEntity用来封装响应数据，包括状态码、HTTP头等信息，它包含了ok(),notFound()等方法，用来创建不同类型的响应信息。如上图的UserRepository.getUserById()返回一个Mono<user>，而ServerResponse.ok().body(Mono.just(user), User.class) 将这个Mono<user>转成Mono<serverresponse>,这代表在ServerResponse可用时候发送响应的流。<br>ServerResponse.notFound().build()返回一个Mono<serverresponse>对象，当给定的pathVariable中找不到对应用户信息时返回404的服务器响应信息。</serverresponse></serverresponse></user></user></p>
+<p><img src="/img/article/20180403/pic24.jpg" alt=""></p>
+<p>Spring WebFlux除了对响应式http的支持外，还包括服务端推送事件（Server Sent Events,SSE）、WebSocket客户端和服务端的支持。其中服务端推送事件允许服务器不断地推送数据到客户端，它的实现非常简单，只需要返回对象类型配置成Flux<serversentevent>,就会自动按照SSE规范要求的格式发送响应。<br>在命令式的编程风格中，线程的执行会被堵塞，直到接收到数据。这使得数据在实际返回之前线程必须进行等待。而在Reactive编程中，我们定义了一个流，用来发送数据以及数据返回时所执行的操作。使用这种方法线程不会被堵塞的。当数据返回时框架会选择一个可用的线程进行下一步处理，这就体现出异步非阻塞模式的优势所在。因此响应式编程能带来更快处理速度，更高硬件利用率的未来选择。</serversentevent></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-fn-handler-functions" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-fn-handler-functions</a></li>
+<li><a href="https://coyee.com/article/12086-spring-5-reactive-web" target="_blank" rel="noopener">https://coyee.com/article/12086-spring-5-reactive-web</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/30813274" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30813274</a></li>
+<li><a href="https://github.com/hantsy/spring-reactive-sample#spring-data-redis" target="_blank" rel="noopener">https://github.com/hantsy/spring-reactive-sample#spring-data-redis</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/spring5-webflux-reactive/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/spring5-webflux-reactive/index.html</a></li>
+</ul>
+<h2 id="作者介绍"><a href="#作者介绍" class="headerlink" title="作者介绍"></a>作者介绍</h2><p>刘海东，供职于开鑫金服，任移动端架构师、销售平台技术专家，主要方向是Java Web、Android、shell和C++，精力充沛，爱好广泛。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/" data-id="cjfkpk08700093kjkc45qj0j3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/03/16/见女神的极简之途——BFS算法/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">见女神的极简之途——BFS算法</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/" class="title">SpringBoot2.0之WebFlux开发实战（含源码）</a></p>
+                            <p class="item-date"><time datetime="2018-04-03T06:06:55.000Z" itemprop="datePublished">2018-04-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/03/16/见女神的极简之途——BFS算法/" class="title">见女神的极简之途——BFS算法</a></p>
+                            <p class="item-date"><time datetime="2018-03-16T05:55:27.000Z" itemprop="datePublished">2018-03-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/03/09/别再低效学习了，快构建自己的知识体系吧！/" class="title">别再低效学习了，快构建自己的知识体系吧！</a></p>
+                            <p class="item-date"><time datetime="2018-03-09T05:42:47.000Z" itemprop="datePublished">2018-03-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/30/Elasticsearch依赖包冲突的解决方案/" class="title">Elasticsearch依赖包冲突的解决方案</a></p>
+                            <p class="item-date"><time datetime="2018-01-30T03:04:09.000Z" itemprop="datePublished">2018-01-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/24/震惊！机器人竟然真的开战了，有图有真相！/" class="title">震惊！机器人竟然真的开战了，有图有真相！</a></p>
+                            <p class="item-date"><time datetime="2018-01-24T07:38:08.000Z" itemprop="datePublished">2018-01-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习方法/">学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-BFS/">算法 BFS</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/elasticsearch-guava/" style="font-size: 10px;">elasticsearch guava</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/学习方法/" style="font-size: 10px;">学习方法</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a> <a href="/tags/算法-BFS/" style="font-size: 10px;">算法 BFS</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

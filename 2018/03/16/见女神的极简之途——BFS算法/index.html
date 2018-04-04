@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>见女神的极简之途——BFS算法 | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="三月，空气中弥漫着恋爱的味道，程序员哧溜君忽然接到女神电话要去见丈母娘了（喜闻乐见），女神一再叮嘱头一次得好好地准备准备，而且不能迟到：  到【艾欧尼亚】做头发； 到【德玛西亚】买给岳父的保养品； 到【扭曲丛林】买给丈母娘的护肤品； 到【皮城警备】买给准小侄子的玩具； 最后才能到【女神家】……每个地方的距离都很远，如何合理地规划路线？这相似的场景，程序员哧溜君不觉笑了起来……">
+<meta name="keywords" content="算法 BFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="见女神的极简之途——BFS算法">
+<meta property="og:url" content="http://kplxq.github.io/2018/03/16/见女神的极简之途——BFS算法/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="三月，空气中弥漫着恋爱的味道，程序员哧溜君忽然接到女神电话要去见丈母娘了（喜闻乐见），女神一再叮嘱头一次得好好地准备准备，而且不能迟到：  到【艾欧尼亚】做头发； 到【德玛西亚】买给岳父的保养品； 到【扭曲丛林】买给丈母娘的护肤品； 到【皮城警备】买给准小侄子的玩具； 最后才能到【女神家】……每个地方的距离都很远，如何合理地规划路线？这相似的场景，程序员哧溜君不觉笑了起来……">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180316/pic1.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180316/pic2.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180316/pic3.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180316/pic4.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180316/pic5.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180316/pic6.jpg">
+<meta property="og:updated_time" content="2018-04-04T06:28:44.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="见女神的极简之途——BFS算法">
+<meta name="twitter:description" content="三月，空气中弥漫着恋爱的味道，程序员哧溜君忽然接到女神电话要去见丈母娘了（喜闻乐见），女神一再叮嘱头一次得好好地准备准备，而且不能迟到：  到【艾欧尼亚】做头发； 到【德玛西亚】买给岳父的保养品； 到【扭曲丛林】买给丈母娘的护肤品； 到【皮城警备】买给准小侄子的玩具； 最后才能到【女神家】……每个地方的距离都很远，如何合理地规划路线？这相似的场景，程序员哧溜君不觉笑了起来……">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20180316/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/wx_gzh.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/wx_gzh.jpg" />
+            <h2 id="name">聊技术，谈人生</h2>
+            <h3 id="title">欢迎关注微信公众号</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                17
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                8
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-见女神的极简之途——BFS算法" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            见女神的极简之途——BFS算法
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/03/16/见女神的极简之途——BFS算法/">
+            <time datetime="2018-03-16T05:55:27.000Z" itemprop="datePublished">2018-03-16</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/算法-BFS/">算法 BFS</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><img src="/img/article/20180316/pic1.jpg" alt=""></p>
+<p>三月，空气中弥漫着恋爱的味道，程序员哧溜君忽然接到女神电话要去见丈母娘了（喜闻乐见），女神一再叮嘱头一次得好好地准备准备，而且不能迟到：</p>
+<ul>
+<li>到【艾欧尼亚】做头发；</li>
+<li>到【德玛西亚】买给岳父的保养品；</li>
+<li>到【扭曲丛林】买给丈母娘的护肤品；</li>
+<li>到【皮城警备】买给准小侄子的玩具；</li>
+<li>最后才能到【女神家】……<br>每个地方的距离都很远，如何合理地规划路线？这相似的场景，程序员哧溜君不觉笑了起来……</li>
+</ul>
+<a id="more"></a>
+<p><img src="/img/article/20180316/pic2.jpg" alt=""></p>
+<h2 id="BFS是什么"><a href="#BFS是什么" class="headerlink" title="BFS是什么"></a>BFS是什么</h2><p>BFS全称为Breadth-First-Search，即⼴度优先遍历算法，是经典的连通图遍历算法。简单的说， BFS是从根结点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问则算法结束。</p>
+<p>换成算法语来描述的话就是：</p>
+<ul>
+<li>首先将根节点放到待遍历的队列Q中；</li>
+<li>循环从Q中获取待遍历的节点N；</li>
+<li>获取节点N通过条边可以到达的所有节点集合L；</li>
+<li>循环遍历节点集合 L，判断L的元素是否存在于已遍历的节点集合C中；<ul>
+<li>已存在集合 C中，则忽略；</li>
+<li>不存在集合 C中，则将此节点加⼊到队列 Q中；</li>
+</ul>
+</li>
+<li>循环遍历Q直到Q为空则遍历结束。<br>（没看懂没关系，后面有详细讲解呢，哧溜~）</li>
+</ul>
+<h2 id="BFS用来做什么"><a href="#BFS用来做什么" class="headerlink" title="BFS用来做什么"></a>BFS用来做什么</h2><p>BFS作为图遍历的基础算法，它的算法思想被很多高级算法借鉴和使用。 Dijkstra单源最短路径算法和Prim最小生成树算法都采用了和宽度优先搜索类似的思想。</p>
+<p>我们可以对哧溜君见丈母娘之路进行建模，A点为哧溜君所在之处，B点为目的地，找到A与B之间的最短路径。</p>
+<p>针对上述问题有很多算法方案可以解决，其中BFS算法是较简单和直接的方案。以A节点为根节点通过BFS遍历其他节点，直到遍历到B节点为止，这种理想情况下说起来还是比较简单的。</p>
+<p>但是不要认为这样就可以完美解决这个问题，完美的解决方案还需要考虑以下因素：</p>
+<ul>
+<li>哧溜君在行走的过程中，如何避免遇到前女友；</li>
+<li>在那么多的目的地之中寻找最先去的目的地；</li>
+<li>在哧溜君去往目的地的路上，判断是否需要翻墙、踩水坑、闯红灯；</li>
+</ul>
+<h2 id="BFS怎么做"><a href="#BFS怎么做" class="headerlink" title="BFS怎么做"></a>BFS怎么做</h2><p>以上都是理论知识，读起来可能比较枯燥。我们举个例子来进一步说明BFS算法。给定一个图，从图中一个节点出发，通过BFS遍历所有能遍历的节点。</p>
+<ul>
+<li>图的初始状态如下：</li>
+</ul>
+<p><img src="/img/article/20180316/pic3.jpg" alt=""></p>
+<ul>
+<li>初始状态，从顶点 1开始，队列 ={1}；</li>
+</ul>
+<p><img src="/img/article/20180316/pic4.jpg" alt=""></p>
+<ul>
+<li>访问1的邻接顶点， 1出队变⿊， 2,3⼊队，队列 ={2,3,};</li>
+</ul>
+<p><img src="/img/article/20180316/pic5.jpg" alt=""></p>
+<ul>
+<li>访问2的邻接结点， 2出队，4⼊队，队列 ={3,4};</li>
+</ul>
+<p><img src="/img/article/20180316/pic6.jpg" alt=""></p>
+<ul>
+<li>访问4的邻接结点， 4出队，队列 ={空};</li>
+</ul>
+<p>经过上述遍历过程，我们已经通过BFS算法找到所有节点1可以到达的节点，进一步可以分析出节点1到每个节点的最短距离，哈哈哈哈哈……</p>
+<p>程序员哧溜君经过一番计算后，</p>
+<p>终于……终于……从梦中醒来了。<br>程序员怎么可能有女朋友啊，而且还是女神！<br>还是去程序里继续new对象吧。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2018/03/16/见女神的极简之途——BFS算法/" data-id="cjfkpk095000w3kjk41pjeb42" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    SpringBoot2.0之WebFlux开发实战（含源码）
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/03/09/别再低效学习了，快构建自己的知识体系吧！/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">别再低效学习了，快构建自己的知识体系吧！</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/" class="title">SpringBoot2.0之WebFlux开发实战（含源码）</a></p>
+                            <p class="item-date"><time datetime="2018-04-03T06:06:55.000Z" itemprop="datePublished">2018-04-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/03/16/见女神的极简之途——BFS算法/" class="title">见女神的极简之途——BFS算法</a></p>
+                            <p class="item-date"><time datetime="2018-03-16T05:55:27.000Z" itemprop="datePublished">2018-03-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/03/09/别再低效学习了，快构建自己的知识体系吧！/" class="title">别再低效学习了，快构建自己的知识体系吧！</a></p>
+                            <p class="item-date"><time datetime="2018-03-09T05:42:47.000Z" itemprop="datePublished">2018-03-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/30/Elasticsearch依赖包冲突的解决方案/" class="title">Elasticsearch依赖包冲突的解决方案</a></p>
+                            <p class="item-date"><time datetime="2018-01-30T03:04:09.000Z" itemprop="datePublished">2018-01-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/24/震惊！机器人竟然真的开战了，有图有真相！/" class="title">震惊！机器人竟然真的开战了，有图有真相！</a></p>
+                            <p class="item-date"><time datetime="2018-01-24T07:38:08.000Z" itemprop="datePublished">2018-01-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习方法/">学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-BFS/">算法 BFS</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/elasticsearch-guava/" style="font-size: 10px;">elasticsearch guava</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/学习方法/" style="font-size: 10px;">学习方法</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a> <a href="/tags/算法-BFS/" style="font-size: 10px;">算法 BFS</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

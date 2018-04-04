@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Elasticsearch依赖包冲突的解决方案 | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Guava是谷歌开源的一个工具类库，有很多实用的工具类广为流传，在Java1.7往后的版本也有很多基于Guava类库的工具类进行的优化，很多中间件也依赖Guava用来优化代码，但是Guava的版本升级很快，大版本号升级时，有些类库是不向下兼容的，本文要说的就是在Elasticsearch和HBase中Guava版本不一致导致的依赖冲突的解决方案">
+<meta name="keywords" content="elasticsearch guava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch依赖包冲突的解决方案">
+<meta property="og:url" content="http://kplxq.github.io/2018/01/30/Elasticsearch依赖包冲突的解决方案/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="Guava是谷歌开源的一个工具类库，有很多实用的工具类广为流传，在Java1.7往后的版本也有很多基于Guava类库的工具类进行的优化，很多中间件也依赖Guava用来优化代码，但是Guava的版本升级很快，大版本号升级时，有些类库是不向下兼容的，本文要说的就是在Elasticsearch和HBase中Guava版本不一致导致的依赖冲突的解决方案">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-28T01:26:48.883Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch依赖包冲突的解决方案">
+<meta name="twitter:description" content="Guava是谷歌开源的一个工具类库，有很多实用的工具类广为流传，在Java1.7往后的版本也有很多基于Guava类库的工具类进行的优化，很多中间件也依赖Guava用来优化代码，但是Guava的版本升级很快，大版本号升级时，有些类库是不向下兼容的，本文要说的就是在Elasticsearch和HBase中Guava版本不一致导致的依赖冲突的解决方案">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/wx_gzh.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/wx_gzh.jpg" />
+            <h2 id="name">聊技术，谈人生</h2>
+            <h3 id="title">欢迎关注微信公众号</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                17
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                8
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Elasticsearch依赖包冲突的解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Elasticsearch依赖包冲突的解决方案
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/01/30/Elasticsearch依赖包冲突的解决方案/">
+            <time datetime="2018-01-30T03:04:09.000Z" itemprop="datePublished">2018-01-30</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>Guava是谷歌开源的一个工具类库，有很多实用的工具类广为流传，在Java1.7往后的版本也有很多基于Guava类库的工具类进行的优化，很多中间件也依赖Guava用来优化代码，但是Guava的版本升级很快，大版本号升级时，有些类库是不向下兼容的，本文要说的就是在Elasticsearch和HBase中Guava版本不一致导致的依赖冲突的解决方案</p>
+<a id="more"></a>
+<p><a href="https://github.com/kplxq/talos" target="_blank" rel="noopener">Talos</a>的应用架构中，我们是在talos-storage组件中将链路日志的数据存储到HBase和Elasticsearch，在开发过程中，遇到ES和HBase因依赖的Guava包冲突导致工程启动报错。</p>
+<p>HBase版本号：1.2.0 (依赖Guava12.0.1)<br>Elasticsearch版本号：2.4.0 (依赖Guava10.0.1)<br>Java：1.7</p>
+<p>Elasticsearch官方对于这个问题还是很重视的，关于是否要移除Guava依赖，在github issue上还有一些激烈的讨论，附上<a href="https://github.com/elastic/elasticsearch/issues/13224" target="_blank" rel="noopener">issue链接</a>，因为开发者的重视，在Elasticsearch5.0.0版本的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/release-notes-5.0.0.html" target="_blank" rel="noopener">release note</a>中，公开已经将对guava的依赖去掉了。不过在我们开发talos-storage的时候，Elasticsearch还没有发布5.0.0的Release，因此当时是参考官网的一篇指导文档<a href="https://www.elastic.co/blog/to-shade-or-not-to-shade" target="_blank" rel="noopener">To shade or not to shade</a>，官网是以joda为例，guava的shade方式也如出一辙。</p>
+<p>后面配置文件很长，所以先给出结论：<br>1、如果你现在还处于调研阶段，遇到了ES和HBase或其他组件对Guava的依赖冲突，建议转去调研Elasticsearch的最新RELEASE版本。<br>2、如果你和我一样，产线已经部署并运行着Elasticsearch5.0.0以下的版本，那你有两种选择，一种是将Elasticsearch升级到5.0.0，另一种是使用shade的方式，以下将分别介绍这两种方案的实施步骤。</p>
+<h3 id="升级Elasticsearch-2-x至5-x"><a href="#升级Elasticsearch-2-x至5-x" class="headerlink" title="升级Elasticsearch (2.x至5.x)"></a>升级Elasticsearch (2.x至5.x)</h3><p>Elasticsearch的大版本升级是需要停止所有节点后再重启的，不支持波浪升级，在升级之前需要做的几件事：<br>1、使用<a href="https://github.com/elastic/elasticsearch-migration/" target="_blank" rel="noopener">Elasticsearch Migration Plugin</a>插件来排除潜在风险。<br>2、产线环境搞之前一定要在测试环境先验证成功。<br>3、备份数据，备份数据，备份数据。</p>
+<p>以下是升级的步骤：<br>1、为避免一个节点关闭后分片之间的数据复制导致的I/O浪费，在关闭节点前先Disable shard allocation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT _cluster/settings</span><br><span class="line">&#123;</span><br><span class="line">  &quot;persistent&quot;: &#123;</span><br><span class="line">    &quot;cluster.routing.allocation.enable&quot;: &quot;none&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、将flush改为同步操作，分片的恢复会快很多。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST _flush/synced</span><br></pre></td></tr></table></figure>
+<p>3、逐个节点关闭并升级，这个看你最初安装es是什么方式的，如果是参考taolo的<a href="http://kplxq.com/2017/12/15/Elasticsearch%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/" target="_blank" rel="noopener">Elasticsearch部署文档</a>，那依然参考这篇博客，只需在下载时使用最新RELEASE的即可。<br>4、升级所有的插件，用<code>elasticsearch-plugin</code>脚本即可。<br>5、启动各个节点，待所有节点均已启动成功，并且status返回的是yellow，表明所有分片已经恢复。<br>6、重新启用分片分配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT _cluster/settings</span><br><span class="line">&#123;</span><br><span class="line">  &quot;persistent&quot;: &#123;</span><br><span class="line">    &quot;cluster.routing.allocation.enable&quot;: &quot;all&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>7、这时候Elasticsearch已经升级完成了，并可以正常工作了，不过为了集群更快的恢复，建议还是等到status返回green，再进行后续工作。</p>
+<h3 id="不升级Elasticsearch，使用shade的方式避免冲突"><a href="#不升级Elasticsearch，使用shade的方式避免冲突" class="headerlink" title="不升级Elasticsearch，使用shade的方式避免冲突"></a>不升级Elasticsearch，使用shade的方式避免冲突</h3><h4 id="坐享其成"><a href="#坐享其成" class="headerlink" title="坐享其成"></a>坐享其成</h4><p>talos-storage组件已经实践过并已经发布RELEASE的一个talos-es-shaded，将对elasticsearch的依赖改为如下即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;joda-time&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;joda-time&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.google.guava&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;guava&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;12.0.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.kxjf.talos&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;talos-es-shaded&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="自力更生"><a href="#自力更生" class="headerlink" title="自力更生"></a>自力更生</h4><p>创建一个新的maven工程，pom文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;my.elasticsearch.test&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;es-shaded&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;properties&gt;</span><br><span class="line">   &lt;elasticsearch.version&gt;2.0.0-beta2&lt;/elasticsearch.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">   &lt;dependency&gt;</span><br><span class="line">       &lt;groupId&gt;org.elasticsearch&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;elasticsearch&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;$&#123;elasticsearch.version&#125;&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br><span class="line">   &lt;dependency&gt;</span><br><span class="line">       &lt;groupId&gt;org.elasticsearch.plugin&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;shield&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;$&#123;elasticsearch.version&#125;&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line">&lt;repositories&gt;</span><br><span class="line">   &lt;repository&gt;</span><br><span class="line">       &lt;id&gt;elasticsearch-releases&lt;/id&gt;</span><br><span class="line">       http://maven.elasticsearch.org/releases</span><br><span class="line">       &lt;releases&gt;</span><br><span class="line">           &lt;enabled&gt;true&lt;/enabled&gt;</span><br><span class="line">           &lt;updatePolicy&gt;daily&lt;/updatePolicy&gt;</span><br><span class="line">       &lt;/releases&gt;</span><br><span class="line">       &lt;snapshots&gt;</span><br><span class="line">           &lt;enabled&gt;false&lt;/enabled&gt;</span><br><span class="line">       &lt;/snapshots&gt;</span><br><span class="line">   &lt;/repository&gt;</span><br><span class="line">&lt;/repositories&gt;</span><br><span class="line"></span><br><span class="line">&lt;build&gt;</span><br><span class="line">   &lt;plugins&gt;</span><br><span class="line">     &lt;plugin&gt;</span><br><span class="line">       &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;2.4.1&lt;/version&gt;</span><br><span class="line">       &lt;executions&gt;</span><br><span class="line">         &lt;execution&gt;</span><br><span class="line">           &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">           &lt;goals&gt;</span><br><span class="line">             &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">           &lt;/goals&gt;</span><br><span class="line">           &lt;configuration&gt;</span><br><span class="line">             &lt;relocations&gt;</span><br><span class="line">               &lt;relocation&gt;</span><br><span class="line">                 &lt;pattern&gt;org.joda&lt;/pattern&gt;</span><br><span class="line">                 &lt;shadedPattern&gt;my.elasticsearch.joda&lt;/shadedPattern&gt;</span><br><span class="line">               &lt;/relocation&gt;</span><br><span class="line">               &lt;relocation&gt;</span><br><span class="line">				 &lt;pattern&gt;com.google.guava&lt;/pattern&gt;</span><br><span class="line">				 &lt;shadedPattern&gt;my.elasticsearch.guava&lt;/shadedPattern&gt;</span><br><span class="line">			   &lt;/relocation&gt;</span><br><span class="line">             &lt;/relocations&gt;</span><br><span class="line">             &lt;transformers&gt;</span><br><span class="line">               &lt;transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot; /&gt;</span><br><span class="line">             &lt;/transformers&gt;</span><br><span class="line">           &lt;/configuration&gt;</span><br><span class="line">         &lt;/execution&gt;</span><br><span class="line">       &lt;/executions&gt;</span><br><span class="line">     &lt;/plugin&gt;</span><br><span class="line">   &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p>在执行mvn clean install 后，依赖将变成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;my.elasticsearch.test&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;es-shaded&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;joda-time&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;joda-time&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.google.guava&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;guava&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;12.0.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>比如你还要使用2.9.2版本的joda，照常引入<code>org.joda.time.DateTime</code>即可，若你要使用shaded版本中的Joda，引入<code>my.elasticsearch.joda.time.DateTime</code>即可，不过这种做法并不被建议哈，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CodeSource codeSource = new org.joda.time.DateTime().getClass().getProtectionDomain().getCodeSource();</span><br><span class="line">System.out.println(&quot;unshaded = &quot; + codeSource);</span><br><span class="line">codeSource = new my.elasticsearch.joda.time.DateTime().getClass().getProtectionDomain().getCodeSource();</span><br><span class="line">System.out.println(&quot;shaded = &quot; + codeSource);</span><br></pre></td></tr></table></figure>
+<p>将会输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unshaded = (file:/path/to/joda-time-2.1.jar &lt;no signer certificates&gt;)</span><br><span class="line">shaded = (file:/path/to/es-shaded-1.0-SNAPSHOT.jar &lt;no signer certificates&gt;)</span><br></pre></td></tr></table></figure>
+<p>End.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2018/01/30/Elasticsearch依赖包冲突的解决方案/" data-id="cjfkpk07y00053kjkcbw3tfyv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/03/09/别再低效学习了，快构建自己的知识体系吧！/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    别再低效学习了，快构建自己的知识体系吧！
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/01/24/震惊！机器人竟然真的开战了，有图有真相！/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">震惊！机器人竟然真的开战了，有图有真相！</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/03/SpringBoot2-0之WebFlux开发实战（含源码）/" class="title">SpringBoot2.0之WebFlux开发实战（含源码）</a></p>
+                            <p class="item-date"><time datetime="2018-04-03T06:06:55.000Z" itemprop="datePublished">2018-04-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/03/16/见女神的极简之途——BFS算法/" class="title">见女神的极简之途——BFS算法</a></p>
+                            <p class="item-date"><time datetime="2018-03-16T05:55:27.000Z" itemprop="datePublished">2018-03-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/03/09/别再低效学习了，快构建自己的知识体系吧！/" class="title">别再低效学习了，快构建自己的知识体系吧！</a></p>
+                            <p class="item-date"><time datetime="2018-03-09T05:42:47.000Z" itemprop="datePublished">2018-03-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/30/Elasticsearch依赖包冲突的解决方案/" class="title">Elasticsearch依赖包冲突的解决方案</a></p>
+                            <p class="item-date"><time datetime="2018-01-30T03:04:09.000Z" itemprop="datePublished">2018-01-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/24/震惊！机器人竟然真的开战了，有图有真相！/" class="title">震惊！机器人竟然真的开战了，有图有真相！</a></p>
+                            <p class="item-date"><time datetime="2018-01-24T07:38:08.000Z" itemprop="datePublished">2018-01-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习方法/">学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-BFS/">算法 BFS</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/elasticsearch-guava/" style="font-size: 10px;">elasticsearch guava</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/学习方法/" style="font-size: 10px;">学习方法</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a> <a href="/tags/算法-BFS/" style="font-size: 10px;">算法 BFS</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
