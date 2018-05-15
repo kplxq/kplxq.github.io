@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>10个小技巧让你的代码更Pythonic | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Python 是一门兼具简单与功能强大的编程语言，拥有丰富的第三方库，在数据分析、AI、机器学习、Web 开发、运维、测试等多个领域都有不俗的表现。Python界中有一句非常有名的口号——人生苦短，我用Python。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10个小技巧让你的代码更Pythonic">
+<meta property="og:url" content="http://kplxq.github.io/2018/04/27/10个小技巧让你的代码更Pythonic/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="Python 是一门兼具简单与功能强大的编程语言，拥有丰富的第三方库，在数据分析、AI、机器学习、Web 开发、运维、测试等多个领域都有不俗的表现。Python界中有一句非常有名的口号——人生苦短，我用Python。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180427/pic1.jpg">
+<meta property="og:updated_time" content="2018-05-15T13:10:25.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10个小技巧让你的代码更Pythonic">
+<meta name="twitter:description" content="Python 是一门兼具简单与功能强大的编程语言，拥有丰富的第三方库，在数据分析、AI、机器学习、Web 开发、运维、测试等多个领域都有不俗的表现。Python界中有一句非常有名的口号——人生苦短，我用Python。">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20180427/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/wx_gzh.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/wx_gzh.jpg" />
+            <h2 id="name">聊技术，谈人生</h2>
+            <h3 id="title">欢迎关注微信公众号</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                26
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-10个小技巧让你的代码更Pythonic" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            10个小技巧让你的代码更Pythonic
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/27/10个小技巧让你的代码更Pythonic/">
+            <time datetime="2018-04-27T12:17:24.000Z" itemprop="datePublished">2018-04-27</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Python/">Python</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><img src="/img/article/20180427/pic1.jpg" alt=""></p>
+<p>Python 是一门兼具简单与功能强大的编程语言，拥有丰富的第三方库，在数据分析、AI、机器学习、Web 开发、运维、测试等多个领域都有不俗的表现。Python界中有一句非常有名的口号——人生苦短，我用Python。</p>
+<a id="more"></a>
+<p>假如要交换变量a和b的值，你会怎么做？<br>…<br>是这样吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = 1</span><br><span class="line">b = 2</span><br><span class="line">temp = a</span><br><span class="line">a = b</span><br><span class="line">b = temp</span><br></pre></td></tr></table></figure>
+<p>隔壁的靖神觉得low爆了，竟然还用了多余的变量？<br>其实有更Pythonic的做法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = 1</span><br><span class="line">b = 2</span><br><span class="line">a, b = b, a</span><br></pre></td></tr></table></figure>
+<h2 id="Pythonic是什么？"><a href="#Pythonic是什么？" class="headerlink" title="Pythonic是什么？"></a>Pythonic是什么？</h2><p>所谓Pythonic简单说就是用Python的特有的语法去实现相应的功能，使代码更简洁、优雅、通俗易懂，更重要的是，看上去（diao）堡了。下面就教你如何使用正确的姿势。</p>
+<h2 id="如何让你的代码更Pythonic？"><a href="#如何让你的代码更Pythonic？" class="headerlink" title="如何让你的代码更Pythonic？"></a>如何让你的代码更Pythonic？</h2><p>1、遵循Python PEP8代码规范</p>
+<p>这里只想说，驼峰式命名以经深入骨髓，不是说Python不支持这样的格式，只是使用带有PEP8插件的工具有助于你养成良好编码规范，更符合大部分用户的习惯，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def  helloWorld():</span><br><span class="line">       outputMessage = &quot;Hello World&quot;</span><br><span class="line">       print outputMessage</span><br></pre></td></tr></table></figure></p>
+<p>PEP8代码规范：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def  hello_world():</span><br><span class="line">       output_message = &quot;Hello World&quot;</span><br><span class="line">       print output_message</span><br></pre></td></tr></table></figure></p>
+<p>2、用全局变量<strong>file</strong>实时获取当前文件夹和文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 获取当前文件路径</span><br><span class="line">print __file__ </span><br><span class="line"># 获取当前文件夹名称</span><br><span class="line">print os.path.basename(__file__)  </span><br><span class="line"># 获取当前文件夹的目录</span><br><span class="line">print os.path.join(os.path.dirname(__file__))  </span><br><span class="line"># 获取当前文件夹的上一层目录</span><br><span class="line">print os.path.join(os.path.dirname(os.path.dirname(__file__)))</span><br></pre></td></tr></table></figure></p>
+<p>3、动态加入PYTHONPATH</p>
+<p>PYTHONPATH是python搜索模块路径集，有时自已写了一些模块执行时会报错no module named XXX,这就是python找不到此模块,此时我们可以动态的将目录加入到PYTHONPATH当中，这样即使分享代码给别人用，也能正常执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 将当前文件夹实时加入到PYTHONPATH当中</span><br><span class="line">sys.path.append(os.getcwd())</span><br><span class="line">print sys.path</span><br></pre></td></tr></table></figure></p>
+<p>4、使用xrange代替range处理大文档</p>
+<p>迭代器并不像list一样，直接存储进内存，想想处理一个1G文档的情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type_iterator = xrange(10)</span><br><span class="line">type_list = range(10)</span><br><span class="line"></span><br><span class="line">print type(type_iterator)  # 返回的是迭代器</span><br><span class="line">print type(type_list)  # 返回的是list</span><br></pre></td></tr></table></figure></p>
+<p>5、使用列表推倒式获取文件</p>
+<p>假如想获取当前目录下的文件，不考虑子文件夹的内容，通常可能这么做：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">file_list = list()</span><br><span class="line">for item in os.listdir(r&quot;/tmp&quot;):</span><br><span class="line">    if os.path.isfile(item):</span><br><span class="line">        file_list.append(item)</span><br><span class="line">print file_list</span><br></pre></td></tr></table></figure></p>
+<p>而用列表推倒式一行就搞定了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file_list = [item for item in os.listdir(r&quot;/tmp&quot;) if os.path.isfile(item)]</span><br><span class="line">print file_list</span><br></pre></td></tr></table></figure></p>
+<p>6、使用enumerate获取对象索引和元素</p>
+<p>为了同时获取一个可迭代对象的索引和元素，通常做法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a_list = [1, 2, 3, 4]</span><br><span class="line">for i in xrange(len(a_list)):</span><br><span class="line">    print i, a_list[i]</span><br></pre></td></tr></table></figure></p>
+<p>使用enumerate时：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a_list = [1, 2, 3, 4]</span><br><span class="line">for i, item in enumerate(a_list):</span><br><span class="line">    print i, item</span><br></pre></td></tr></table></figure></p>
+<p>7、使用join拼接字符串</p>
+<p>平时我们可能需要写入一个csv，标题是通过逗号分割，标题元素存在一个list当中。通常做法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">head_list = [&quot;username&quot;, &quot;password&quot;, &quot;email&quot;]</span><br><span class="line">head_str = &quot;&quot;</span><br><span class="line">for item in head_list:</span><br><span class="line">    head_str += item + &quot;,&quot;</span><br><span class="line">print head_str</span><br><span class="line">使用join时：</span><br><span class="line">head_list = [&quot;username&quot;, &quot;password&quot;, &quot;email&quot;]</span><br><span class="line">print &quot;,&quot;.join(head_list)</span><br></pre></td></tr></table></figure></p>
+<p>8、多使用内置函数</p>
+<p>尤其对列表进行一些计算时，如求和、最大值、最小值、排序等，以求合为例，通常是循环后累加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a_list = [1, 10, 5, 7, 9]</span><br><span class="line">total = 0</span><br><span class="line">for item in a_list:</span><br><span class="line">    total += item</span><br><span class="line">print total</span><br></pre></td></tr></table></figure></p>
+<p>使用内置全局函数就简单多了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from operator import mul</span><br><span class="line"></span><br><span class="line">a_list = [1, 10, 5, 7, 9]</span><br><span class="line">print sum(a_list)</span><br><span class="line">print max(a_list)</span><br><span class="line">print min(a_list)</span><br><span class="line">print reduce(mul, a_list)  # list中所有元素相乘</span><br><span class="line">print sorted(a_list)  # 简单的从小到大排序</span><br></pre></td></tr></table></figure></p>
+<p>9、使用模板方式格式化字符串</p>
+<p>通常做法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print &quot;Life is Short , Please Use %s -- %s&quot; % (&quot;Python&quot;, &quot;Bruce Eckel&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>使用format，位置参数时：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print &quot;Life is Short , Please Use &#123;0&#125; -- &#123;1&#125;&quot;.format(&quot;Python&quot;, &quot;Bruce Eckel&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>前两种方式来看，%s和使用占位符都不是那么清晰，而通过模板的方式就非常明了了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print &quot;Life is Short , Please Use &#123;language&#125; -- &#123;name&#125;&quot;.format(language=&quot;Python&quot;, name=&quot;Bruce Eckel&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>10、用装饰器简化代码</p>
+<p>装饰器并不算是Python特有的功能，其他语言也存在，使用得当可以大幅度减少重复性代码。假设我们想看某些方法到底运行了多少时间，总不能每一个方法都获取一个start_time、end_time，再相减得到运行时间吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"></span><br><span class="line">def  time_cost(func):</span><br><span class="line">    def  wrapper(*args, **kwargs):</span><br><span class="line">          start_time = time.time()</span><br><span class="line">          func(*args, **kwargs)</span><br><span class="line">          end_time = time.time()</span><br><span class="line">          print &quot;TIME COST:&quot; + str(end_time - start_time)</span><br><span class="line">    return wrapper</span><br></pre></td></tr></table></figure></p>
+<p>通过装饰器可以在任何一个函数上获取其执行的时间，而不会修改原函数执行的逻辑：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@time_cost</span><br><span class="line">def  test_decorator():</span><br><span class="line">      count = 0</span><br><span class="line">      for i in xrange(10000000):</span><br><span class="line">          count += i</span><br><span class="line">      print count</span><br></pre></td></tr></table></figure></p>
+<p>好了，通过几个简单的例子，有没有一种使用Python新姿势的感觉，后续我们会介绍更多Pythonic的技巧，大家拭目以待。</p>
+<p>python彩蛋：python之禅，进入python窗口后输入import this<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import this</span><br><span class="line">The Zen of Python, by Tim Peters</span><br><span class="line"></span><br><span class="line">Beautiful is better than ugly.</span><br><span class="line">Explicit is better than implicit.</span><br><span class="line">Simple is better than complex.</span><br><span class="line">Complex is better than complicated.</span><br><span class="line">Flat is better than nested.</span><br><span class="line">Sparse is better than dense.</span><br><span class="line">Readability counts.</span><br><span class="line">Special cases aren&apos;t special enough to break the rules.</span><br><span class="line">Although practicality beats purity.</span><br><span class="line">Errors should never pass silently.</span><br><span class="line">Unless explicitly silenced.</span><br><span class="line">In the face of ambiguity, refuse the temptation to guess.</span><br><span class="line">There should be one-- and preferably only one --obvious way to do it.</span><br><span class="line">Although that way may not be obvious at first unless you&apos;re Dutch.</span><br><span class="line">Now is better than never.</span><br><span class="line">Although never is often better than *right* now.</span><br><span class="line">If the implementation is hard to explain, it&apos;s a bad idea.</span><br><span class="line">If the implementation is easy to explain, it may be a good idea.</span><br><span class="line">Namespaces are one honking great idea -- let&apos;s do more of those!</span><br><span class="line">翻译如下（摘自互联网）：</span><br><span class="line"></span><br><span class="line">优美胜于丑陋（python 以编写优美的代码为目标）</span><br><span class="line">明了胜于晦涩（优美的代码应该是明了的，命名规范，风格相似）</span><br><span class="line">简洁胜于复杂（优美的代码应当是简洁的，不要有复杂的内部实现）</span><br><span class="line">复杂胜于凌乱（如果复杂不可避免。那代码间也不能有难懂的关系，要保持接口简洁）</span><br><span class="line">扁平胜于嵌套（优美的代码应当是扁平的，不能有太多的嵌套）</span><br><span class="line">间隔胜于紧凑（优美的代码有适当的间隔，不要奢望一行代码解决问题）</span><br><span class="line">可读性很重要（优美的代码可读的）</span><br><span class="line">即便假借5特例的实用性之名，也不可违背这些规则（这些规则 至高无上）</span><br><span class="line">不要包容所有错误，除非你确定需要这样做（精确地捕获异常，不写 </span><br><span class="line">except：pass 风格的代码）</span><br><span class="line">当存在多种可能，不要尝试去猜测</span><br><span class="line">而是尽量找一种，最好是唯一一种明显的解决方案（如果不确定，就用穷举法）</span><br><span class="line">虽然这也不容易，因为你不是python之父（这里的dutch是指guido）</span><br><span class="line">做也许好过不做，但不假思索就动手还不如不做（动手之前要细思量）</span><br><span class="line">如果你无法向人描述你的方案，那肯定不是一个好方案；反之亦然（方案评测标准）</span><br><span class="line">命名空间是一种绝妙的理念，我们应当多加利用（倡导与号召）</span><br></pre></td></tr></table></figure></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2018/04/27/10个小技巧让你的代码更Pythonic/" data-id="cjh7nhlhg0000tgjkerhqss8m" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/05/03/Thread状态与生命周期/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    深入玩转Java多线程（一）Thread状态与生命周期
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/04/20/MBT-模型驱动测试的探索与实践（一）/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">MBT-模型驱动测试的探索与实践（一）</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/14/穹顶之下，我们在哪里？/" class="title">穹顶之下，我们在哪里？</a></p>
+                            <p class="item-date"><time datetime="2018-05-14T12:18:31.000Z" itemprop="datePublished">2018-05-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/10/基于STRIDE威胁建模的探索与实践（二）/" class="title">基于STRIDE威胁建模的探索与实践（二）</a></p>
+                            <p class="item-date"><time datetime="2018-05-10T12:18:16.000Z" itemprop="datePublished">2018-05-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/08/基于STRIDE威胁建模的探索与实践（一）/" class="title">基于STRIDE威胁建模的探索与实践（一）</a></p>
+                            <p class="item-date"><time datetime="2018-05-08T12:18:09.000Z" itemprop="datePublished">2018-05-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/03/Thread状态与生命周期/" class="title">深入玩转Java多线程（一）Thread状态与生命周期</a></p>
+                            <p class="item-date"><time datetime="2018-05-03T12:17:50.000Z" itemprop="datePublished">2018-05-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/27/10个小技巧让你的代码更Pythonic/" class="title">10个小技巧让你的代码更Pythonic</a></p>
+                            <p class="item-date"><time datetime="2018-04-27T12:17:24.000Z" itemprop="datePublished">2018-04-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-动态代理/">java 动态代理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基本概率/">基本概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习方法/">学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宇宙-科学/">宇宙 科学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模型驱动测试-测试/">模型驱动测试 测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-BFS/">算法 BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程-Java/">线程 Java</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/elasticsearch-guava/" style="font-size: 10px;">elasticsearch guava</a> <a href="/tags/java-动态代理/" style="font-size: 10px;">java 动态代理</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/区块链/" style="font-size: 10px;">区块链</a> <a href="/tags/基本概率/" style="font-size: 10px;">基本概率</a> <a href="/tags/学习方法/" style="font-size: 10px;">学习方法</a> <a href="/tags/宇宙-科学/" style="font-size: 10px;">宇宙 科学</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a> <a href="/tags/模型驱动测试-测试/" style="font-size: 10px;">模型驱动测试 测试</a> <a href="/tags/算法-BFS/" style="font-size: 10px;">算法 BFS</a> <a href="/tags/线程-Java/" style="font-size: 10px;">线程 Java</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

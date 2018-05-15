@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>基于STRIDE威胁建模的探索与实践（二） | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="屋里亲故啊，想死你们了，在上一篇中我们讲到：在互联网中，系统运行面临着很多的安全风险，一个软件系统应该满足哪些基本的信息安全需求以及有哪些安全设计原则。那么该篇将紧接上篇，讲解具体的应用实践。">
+<meta name="keywords" content="安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于STRIDE威胁建模的探索与实践（二）">
+<meta property="og:url" content="http://kplxq.github.io/2018/05/10/基于STRIDE威胁建模的探索与实践（二）/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:description" content="屋里亲故啊，想死你们了，在上一篇中我们讲到：在互联网中，系统运行面临着很多的安全风险，一个软件系统应该满足哪些基本的信息安全需求以及有哪些安全设计原则。那么该篇将紧接上篇，讲解具体的应用实践。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic1.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic2.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic3.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic4.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic5.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic6.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180510/pic7.jpg">
+<meta property="og:updated_time" content="2018-05-15T13:09:40.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于STRIDE威胁建模的探索与实践（二）">
+<meta name="twitter:description" content="屋里亲故啊，想死你们了，在上一篇中我们讲到：在互联网中，系统运行面临着很多的安全风险，一个软件系统应该满足哪些基本的信息安全需求以及有哪些安全设计原则。那么该篇将紧接上篇，讲解具体的应用实践。">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20180510/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/wx_gzh.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/wx_gzh.jpg" />
+            <h2 id="name">聊技术，谈人生</h2>
+            <h3 id="title">欢迎关注微信公众号</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                26
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-基于STRIDE威胁建模的探索与实践（二）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            基于STRIDE威胁建模的探索与实践（二）
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/05/10/基于STRIDE威胁建模的探索与实践（二）/">
+            <time datetime="2018-05-10T12:18:16.000Z" itemprop="datePublished">2018-05-10</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/安全/">安全</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>屋里亲故啊，想死你们了，在上一篇中我们讲到：在互联网中，系统运行面临着很多的安全风险，一个软件系统应该满足哪些基本的信息安全需求以及有哪些安全设计原则。那么该篇将紧接上篇，讲解具体的应用实践。</p>
+<p><img src="/img/article/20180510/pic1.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="Threat-Modeling威胁建模"><a href="#Threat-Modeling威胁建模" class="headerlink" title="Threat Modeling威胁建模"></a>Threat Modeling威胁建模</h2><p>威胁建模的本质：通常我们无法证明给定的设计是安全的，但我们可以从既有的错误中汲取教训并避免犯同样的错误。</p>
+<p>工欲善其事必先利其器，Microsoft威胁建模工具（Threat Modeling Tool）是一款基于STRIDE模型的威胁建模工具。通过该工具可以实现如下目的：</p>
+<ul>
+<li>分析与交流系统的安全设计方案</li>
+<li>使用经过证实的方法分析当前设计潜在的安全问题</li>
+<li>提出和管理针对安全问题的解决措施</li>
+</ul>
+<p>简而言之，威胁建模的全过程主要划分成4步，并且这4步将贯穿于SDL的安全流程管理之中：</p>
+<ul>
+<li>构建模型图（Diagram）：安全需求阶段</li>
+<li>识别威胁（Identify）：安全设计阶段</li>
+<li>缓解问题（Mitigate）：安全实施阶段</li>
+<li>验证（Validate）：安全测试阶段</li>
+</ul>
+<p><img src="/img/article/20180510/pic2.jpg" alt=""></p>
+<h3 id="构建模型图（安全需求阶段）"><a href="#构建模型图（安全需求阶段）" class="headerlink" title="构建模型图（安全需求阶段）"></a>构建模型图（安全需求阶段）</h3><p>Threat Modeling通过数据流关系图(DFD)来构建威胁模型，通过构建DFD，可以理清系统中重要的被保护对象以及业务边界，在研发需求阶段同步开展安全需求的整理。</p>
+<p>工具自身提供了丰富的基础元件模板，以方便构建DFD，主要包含了6种类型：</p>
+<ul>
+<li>Generic Process（进程）：OS Process、Threat、Web Server等</li>
+<li>Generic External Interactor（外部实体）：Browser、External Web Service、Megaservice等</li>
+<li>Genetic Data Store（存储）：SQL Database、File System、Cache等</li>
+<li>Genetic Data Flow（数据流）：HTTP、HTTPS、RPC or DCOM等</li>
+<li>Genetic Trust Line Boundary（安全边界）：Internet Boundary、Machine Trust Boundary等</li>
+<li>Genetic Trust Border Boundary（安全区域）：Internet Explorer Boundaries、Sandbox Trust Boundary Border等</li>
+</ul>
+<p><img src="/img/article/20180510/pic3.jpg" alt=""></p>
+<p>基于上述6类模板元件，我们可以绘制出软件系统整体的交互需求图（威胁模型图），说白了就是将软件的需求以DFD数据流图的方式进行展现，该模型图画的越详细越准确，则最终分析得到的潜在威胁信息就越全面越准确，所以分析系统需求，构建威胁模型图是非常重要的。</p>
+<p>下面以互金平台一个最简单的业务场景来构建威胁模型，基本的业务场景是：<br>1、用户A通过浏览器操作互金网站B进行抢标投资操作；<br>2、网站B创建完用户订单后，定向到网银C供用户进行相应的支付操作；<br>3、最终网银C将支付结果反馈给网站B，网站B确认支付，业务结束。</p>
+<p>绘制威胁模型图如下：<br><img src="/img/article/20180510/pic4.jpg" alt=""></p>
+<h3 id="识别威胁（安全设计阶段）"><a href="#识别威胁（安全设计阶段）" class="headerlink" title="识别威胁（安全设计阶段）"></a>识别威胁（安全设计阶段）</h3><h4 id="生成威胁列表"><a href="#生成威胁列表" class="headerlink" title="生成威胁列表"></a>生成威胁列表</h4><p>Threat Modeling工具根据上面的威胁模型数据流图可以自动生成相应的Threat List（威胁列表），这些威胁列表均由工具基于STRIDE威胁模型生成，安全人员要做的就是对这些威胁列表进行识别与分析，找到威胁的原因。</p>
+<p><img src="/img/article/20180510/pic5.jpg" alt=""></p>
+<h4 id="威胁分析"><a href="#威胁分析" class="headerlink" title="威胁分析"></a>威胁分析</h4><p>从截图中可以看出，Threat Modeling给出了几十条威胁告警,这些告警都是系统自动生的，但并非所有的威胁都是有效的、必要的，我们需要对这些告警进行安全分析确认，下面将挑选2条威胁进行示例分析。</p>
+<ul>
+<li><p>威胁分析示例1</p>
+<ul>
+<li>问题：该威胁属于“欺诈”类型的威胁，系统给出的解释是：“网站B可能会被黑客欺诈，同时用户A传递的信息也有可能会遭到信息泄露，建议采用一个标准化的安全认证机制进行信息交互”。</li>
+<li>原因：经过安全人员的分析，系统做出这样判断的原因是：因为系统采用的通信协议为HTTP，是不安全的，因为该协议传递的是明文信息，这可能遭受到中间人（Attacker）窃听或篡改，这样对于用户A而言，他的信息遭到了泄露；对于网站B而言，它遭到了欺骗。</li>
+<li>解决：采用Https协议进行通信。</li>
+</ul>
+</li>
+<li><p>威胁分析示例2</p>
+<ul>
+<li>问题：该威胁属于“欺诈”类威胁。系统给出的解释是：由于网站B对于用户外部不受信任的输入未进行清理，所以网站B可能会被上传恶意脚本，进行CSS攻击。</li>
+<li>原因：按照默认不信任原则，任意来自外部的请求都是可能存在风险的，网站B在处理这些输入的时候，需要进行必要的安全性校验，从而降低受到类似于CSS（XSS）、SQL-Injection等外部非法输入攻击的可能。</li>
+<li>解决：网站B在WebFilter层进行敏感字符的过滤与校验，同时在页面渲染的时候对页面数据进行转义（HtmlEncode），以避免CSS、XSS等脚本攻击。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/article/20180510/pic6.jpg" alt=""></p>
+<h4 id="威胁报告"><a href="#威胁报告" class="headerlink" title="威胁报告"></a>威胁报告</h4><p>Threat Modeling会基于构建的威胁模型生成可能存在潜在风险的威胁列表，安全人员只需要对照这些列表进行依次分析，同时对相应的威胁状态与安全等级进行标记或者调整，最终通过工具即可生成一份详细的威胁报告，威胁报告如下。</p>
+<p><img src="/img/article/20180510/pic7.jpg" alt=""></p>
+<h3 id="缓解问题（安全实施阶段）"><a href="#缓解问题（安全实施阶段）" class="headerlink" title="缓解问题（安全实施阶段）"></a>缓解问题（安全实施阶段）</h3><p>通过上述对威胁列表的分析与标记，我们最终得到了一份较为细致准确的威胁报告，接下来要做的就是与研发的程序猿们进行讨论，给出相应的安全修复建议，然后交于他们落地，进行相应的安全开发设计。</p>
+<h3 id="验证（安全测试阶段）"><a href="#验证（安全测试阶段）" class="headerlink" title="验证（安全测试阶段）"></a>验证（安全测试阶段）</h3><p>安全人员可以基于威胁建模报告，输出相应的安全测试用例，在研发提交功能测试的同时，安全人员也将介入开展安全测试，从而验证威胁漏洞是否被很好的堵上，最终保障系统的安全。</p>
+<h2 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h2><p>通过Threat Modeling我们可以将DSL安全流程很好的引入到项目管理中，这对软件研发全流程安全的把控起到了积极的作用。</p>
+<p>通过威胁建模，安全人员可以有效的分析出系统可能存在的安全漏洞，及早的给出研发人员安全修复建议，同时还可以指导自身安全测试工作的开展，这些对研发安全的效率与效果都具有良好的提升。</p>
+<p>当然，安全不是一蹴而就的，安全的世界里充斥着太多的未知与变化，Threat Modeling提供的只是对已知威胁的分析，它可以帮助我们避免犯同样的错误，同时还有更多未知的威胁等待着我们去挖掘与探索。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2018/05/10/基于STRIDE威胁建模的探索与实践（二）/" data-id="cjh7nhlkm000ntgjk5ha2tx2n" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/05/14/穹顶之下，我们在哪里？/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    穹顶之下，我们在哪里？
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/05/08/基于STRIDE威胁建模的探索与实践（一）/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">基于STRIDE威胁建模的探索与实践（一）</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/14/穹顶之下，我们在哪里？/" class="title">穹顶之下，我们在哪里？</a></p>
+                            <p class="item-date"><time datetime="2018-05-14T12:18:31.000Z" itemprop="datePublished">2018-05-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/10/基于STRIDE威胁建模的探索与实践（二）/" class="title">基于STRIDE威胁建模的探索与实践（二）</a></p>
+                            <p class="item-date"><time datetime="2018-05-10T12:18:16.000Z" itemprop="datePublished">2018-05-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/08/基于STRIDE威胁建模的探索与实践（一）/" class="title">基于STRIDE威胁建模的探索与实践（一）</a></p>
+                            <p class="item-date"><time datetime="2018-05-08T12:18:09.000Z" itemprop="datePublished">2018-05-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/03/Thread状态与生命周期/" class="title">深入玩转Java多线程（一）Thread状态与生命周期</a></p>
+                            <p class="item-date"><time datetime="2018-05-03T12:17:50.000Z" itemprop="datePublished">2018-05-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/27/10个小技巧让你的代码更Pythonic/" class="title">10个小技巧让你的代码更Pythonic</a></p>
+                            <p class="item-date"><time datetime="2018-04-27T12:17:24.000Z" itemprop="datePublished">2018-04-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-动态代理/">java 动态代理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基本概率/">基本概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习方法/">学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宇宙-科学/">宇宙 科学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模型驱动测试-测试/">模型驱动测试 测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-BFS/">算法 BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程-Java/">线程 Java</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/elasticsearch-guava/" style="font-size: 10px;">elasticsearch guava</a> <a href="/tags/java-动态代理/" style="font-size: 10px;">java 动态代理</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/区块链/" style="font-size: 10px;">区块链</a> <a href="/tags/基本概率/" style="font-size: 10px;">基本概率</a> <a href="/tags/学习方法/" style="font-size: 10px;">学习方法</a> <a href="/tags/宇宙-科学/" style="font-size: 10px;">宇宙 科学</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a> <a href="/tags/模型驱动测试-测试/" style="font-size: 10px;">模型驱动测试 测试</a> <a href="/tags/算法-BFS/" style="font-size: 10px;">算法 BFS</a> <a href="/tags/线程-Java/" style="font-size: 10px;">线程 Java</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

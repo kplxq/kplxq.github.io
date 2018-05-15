@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>MBT-模型驱动测试的探索与实践（一） | 开普勒鑫球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="模型驱动测试 测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MBT-模型驱动测试的探索与实践（一）">
+<meta property="og:url" content="http://kplxq.github.io/2018/04/20/MBT-模型驱动测试的探索与实践（一）/index.html">
+<meta property="og:site_name" content="开普勒鑫球">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180420/pic1.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180420/pic2.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180420/pic3.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180420/pic4.jpg">
+<meta property="og:image" content="http://kplxq.github.io/img/article/20180420/pic5.jpg">
+<meta property="og:updated_time" content="2018-05-15T13:09:24.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MBT-模型驱动测试的探索与实践（一）">
+<meta name="twitter:image" content="http://kplxq.github.io/img/article/20180420/pic1.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="开普勒鑫球" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/img/logo-transparent.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?97264f328f716eba2dffe62909555fc1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">开普勒鑫球</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">文章</a>
+                
+                    <a class="main-nav-link" href="http://github.com/kplxq">开源项目</a>
+                
+                    <a class="main-nav-link" href="/about">关于我们</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/img/wx_gzh.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">文章</a></td>
+                
+                    <td><a class="main-nav-link" href="http://github.com/kplxq">开源项目</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于我们</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/img/wx_gzh.jpg" />
+            <h2 id="name">聊技术，谈人生</h2>
+            <h3 id="title">欢迎关注微信公众号</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>江苏 南京</span>
+            <a id="follow" target="_blank" href="https://github.com/kplxq">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                26
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/kplxq" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://jq.qq.com/?_wv=1027&k=5XejV0e" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-MBT-模型驱动测试的探索与实践（一）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            MBT-模型驱动测试的探索与实践（一）
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/20/MBT-模型驱动测试的探索与实践（一）/">
+            <time datetime="2018-04-20T12:15:43.000Z" itemprop="datePublished">2018-04-20</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/模型驱动测试-测试/">模型驱动测试 测试</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><img src="/img/article/20180420/pic1.jpg" alt=""></p>
+<a id="more"></a>
+<p>最近遇到了个这样的问题：<br>chapter1  我们家产品汪宣布要盖一栋新型狗屋，于是开发汪哼哧哼哧开始了开发，而测试喵写了200+的用例来检测狗屋的质量；<br>chapter2 产品汪又宣布要盖一栋复合型的狗屋，开发汪说好办，我们把之前的狗屋模型拿来改改就行，而测试喵又满怀激情的写了200+的用例；<br>chapter3、chapter4 again again again<br>测试喵突然有一天感觉腰也酸了，腿也疼了，干不动了，当测试在复制黏贴中沦为纯体力活，激情和价值都不复存在。</p>
+<p>测试喵想：<br>针对这些业务流程、规则类似，但可能在某些分支场景上存在差异的产品，用例似乎可以复用，不需要完全重新设计，但是到底哪些是一致的可以共用的，哪些是需要单独设计的呢？难道完全靠经验来筛选么？出了问题完全看命？改变工作方式的需求呼之欲出，模型驱动测试-MBT进入了测试喵的视线。</p>
+<h2 id="模型驱动测试MBT是什么"><a href="#模型驱动测试MBT是什么" class="headerlink" title="模型驱动测试MBT是什么"></a>模型驱动测试MBT是什么</h2><p>今天第一篇开篇，我们先来分享一下模型驱动MBT的概念，之后我们会有篇续文分享我司在这方面的实践和探索。</p>
+<p>模型驱动测试MBT顾名思义就是基于模型的测试，核心在于模型，模型是对被测系统的抽象。</p>
+<p>模型驱动测试MBT并不是什么新鲜的概念，事实上IBM的Rational Rhapsody TestConductor Add On 和 Rational Quality Manager，微软的Spec Explorer都是基于模型驱动的测试工具，腾讯等大厂在这方面均有实践，只是暂时没有看到通用性很强的工具。</p>
+<h2 id="常见MBT建模种类"><a href="#常见MBT建模种类" class="headerlink" title="常见MBT建模种类"></a>常见MBT建模种类</h2><p>我们通常建立的模型有以下几种：<br>Mental Model（心智模型）：即是人们对于世界的理解方式是透过询问：这是什么？为什么这样？这样有什么目的呢？这个东西是如何运作？它会造成什么后果？将这些问题简化成下列的架构图，这里我们可以将其归纳为对产品的理解、设想和体验。</p>
+<p><img src="/img/article/20180420/pic2.jpg" alt=""></p>
+<p>SUT Model：System Under Test Model 是心智模型（对产品的理解、设想和体验）的外化（以及与现有模型的整合），是一种图形化或形式化的类比模型。它涉及到不同的层次（如系统、组件和工作环境）、不同视角（如语境/上下文、组件与结构、功能、行为和用户体验）和不同关注点（如数据类型、因果关联、程序结构、任务控制、动作、事件和接口）等经过抽象、泛化和删减后，SUT模型只保留有助于实现特定测试目的的特征。SUT模型的实例化可能用到的技术包括Finite State Machine (FSM)，Message Sequence Chart (MSC)， Control FlowGraph (CFG)，Event Flow Diagram，MarkovChains和UML Testing Profile ，语法测试（SYNTAX TESTING），NLP（自然语言语义模型），此外还有从整体视角的HTSM和ACC等等。</p>
+<p>TRM：Test-Ready Model 是对SUT模型的扩展和转化，以使模型达到可测试的标准；该模型也可独立使用，即给出相关信息，我们就可以设计或使用一套测试设计算法，用来产生可以运行的测试用例。它根据SUT模型特征和项目实际情况增加或凸显质量风险信息。必要时TRM需要创建新的模型，这是测试建模的主要难点之一，但也体现了我们价值所在。另外，它转化SUT模型以达到可测试标准，并增加“怎么测”的信息，同时为SUT模型修改重构提供反馈。<br>TRM目前缺少成熟的工具和方法，是MBT的难点和研究方向；可见我们平常通过流程图来推演测试场景的过程本身也是建模的过程，并没有那么高大上对不对。</p>
+<h2 id="MBT建模途径"><a href="#MBT建模途径" class="headerlink" title="MBT建模途径"></a>MBT建模途径</h2><p>建模的过程又有以下几种路径，不同的路径决定了不同的测试设计过程：</p>
+<p><img src="/img/article/20180420/pic3.jpg" alt=""></p>
+<p>路径一（红色箭头）：从心智模型（Mental Model）直接得到测试用例（Ad-hoc Test Design，基于临时需求）；<br>路径二（黄色箭头）: 从心智模型（Mental Model）得到TRM模型，再由TRM模型生成测试用例（传统测试设计）；<br>路径三（蓝色箭头-&gt;紫色箭头）：从心智模型（Mental Model）到SUT模型，再由SUT模型生成测试用例（教科书式）；<br>路径四（蓝色箭头）：从心智模型（Mental Model）到SUT模型，再由SUT模型到TRM模型，最终由TRM模型生成测试用例（MBT）。</p>
+<h2 id="实践举例"><a href="#实践举例" class="headerlink" title="实践举例"></a>实践举例</h2><p>说了这么多理论，我们来举个实际的例子（路径四）：</p>
+<p>需求描述：投资中我们需要增加起投金额的判断<br>假设项目剩余金额为X，投资金额Y输入校验：<br> a.Y大于等于起投金额Z；<br> b.X-Y需大于等于起投金额Z；<br> a、b条件为且的关系</p>
+<p>第一步，建立Mental Model（心智模型）：</p>
+<p>需求：投资金额合法性判断<br>1.投资金额&gt;=起投金额 且  项目剩余可投金额-投资金额&gt;=起投金额<br> 投资成功<br>2.投资金额&lt;起投金额    投资失败<br>3.项目剩余可投金额-投资金额&lt;起投金额  投资失败</p>
+<p>第二步，根据心智模型建立SUT模型：</p>
+<p><img src="/img/article/20180420/pic4.jpg" alt=""></p>
+<p>第三步，根据SUT建立TRM模型：<br>TRM通过SUT建立的模型，增加检查点等，将SUT转化成可执行的用例；<br>1、投资金额&lt;起投金额<br>2、投资金额=起投金额<br>3、…..</p>
+<p> 第四步：将模型转换成用例<br>模型建立好，我们还需要工具支持将我们的模型转化成用例（最好是可执行的用例）。</p>
+<h2 id="MBT测试过程"><a href="#MBT测试过程" class="headerlink" title="MBT测试过程"></a>MBT测试过程</h2><p><img src="/img/article/20180420/pic5.jpg" alt=""></p>
+<p>A、根据需求选择合适的模型来描述被测试对象（测试设计的核心）<br>B、根据模型生成测试用例及期望结果（MBT工具的核心），如果能够直接生成可执行的用例最好；<br>C、在被测系统上执行用例<br>D、比较系统行为及输出和预期结果、反馈验证结果；<br>虽然MBT工具使用的语言千差万别但是基本过程基本一致，我司的MBT测试工具也是这个思路。</p>
+<h2 id="MBT带来的好处"><a href="#MBT带来的好处" class="headerlink" title="MBT带来的好处"></a>MBT带来的好处</h2><p>1、模型建立的过程有助于我们从立体的角度重新认识我们的被测对象，同时也把我们对被测对象的理解通过模型化的方式表达出来，能够更高效的和开发团队中的其他人员沟通；<br>2、如果模型建立适当，我们可以获得我们的基线业务模型、最大程度的减少我们测试设计上的重复工作量，聚焦于变化的部分，并将这种分析从单纯的靠经验转化成通过工具来实现；<br>3、我们可以通过维护模型来保持我们的产品知识库、测试设计、测试数据、用例与系统当前实现的一致性，避免由于版本的快速迭代造成的文档和实际系统脱节的问题；<br>4、为测试leader在测试范围评估过程中的识别风险模块提供现实的依据。</p>
+<p>总结一句话，懒惰才是推动人类科学进步的动力，就像电梯是因为我们懒得爬楼才应运而生的，扫地机器人是因为我们懒得扫地才有市场的，现在我们也懒得反复造轮子写一堆几乎一样的用例，我们要引入新的测试方法，把我们的力气发挥在更有价值的地方。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://kplxq.github.io/2018/04/20/MBT-模型驱动测试的探索与实践（一）/" data-id="cjh7nhlht0001tgjk19ovb8v7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/04/27/10个小技巧让你的代码更Pythonic/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    10个小技巧让你的代码更Pythonic
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/04/16/最接地气的区块链应用/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">最接地气的区块链应用</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/14/穹顶之下，我们在哪里？/" class="title">穹顶之下，我们在哪里？</a></p>
+                            <p class="item-date"><time datetime="2018-05-14T12:18:31.000Z" itemprop="datePublished">2018-05-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/10/基于STRIDE威胁建模的探索与实践（二）/" class="title">基于STRIDE威胁建模的探索与实践（二）</a></p>
+                            <p class="item-date"><time datetime="2018-05-10T12:18:16.000Z" itemprop="datePublished">2018-05-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/08/基于STRIDE威胁建模的探索与实践（一）/" class="title">基于STRIDE威胁建模的探索与实践（一）</a></p>
+                            <p class="item-date"><time datetime="2018-05-08T12:18:09.000Z" itemprop="datePublished">2018-05-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/03/Thread状态与生命周期/" class="title">深入玩转Java多线程（一）Thread状态与生命周期</a></p>
+                            <p class="item-date"><time datetime="2018-05-03T12:17:50.000Z" itemprop="datePublished">2018-05-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/27/10个小技巧让你的代码更Pythonic/" class="title">10个小技巧让你的代码更Pythonic</a></p>
+                            <p class="item-date"><time datetime="2018-04-27T12:17:24.000Z" itemprop="datePublished">2018-04-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch-guava/">elasticsearch guava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-动态代理/">java 动态代理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock框架/">mock框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/talos/">talos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基本概率/">基本概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习方法/">学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宇宙-科学/">宇宙 科学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发编程/">并发编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器人编程/">机器人编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模型驱动测试-测试/">模型驱动测试 测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-BFS/">算法 BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程-Java/">线程 Java</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/elasticsearch-guava/" style="font-size: 10px;">elasticsearch guava</a> <a href="/tags/java-动态代理/" style="font-size: 10px;">java 动态代理</a> <a href="/tags/mock框架/" style="font-size: 10px;">mock框架</a> <a href="/tags/talos/" style="font-size: 20px;">talos</a> <a href="/tags/区块链/" style="font-size: 10px;">区块链</a> <a href="/tags/基本概率/" style="font-size: 10px;">基本概率</a> <a href="/tags/学习方法/" style="font-size: 10px;">学习方法</a> <a href="/tags/宇宙-科学/" style="font-size: 10px;">宇宙 科学</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/机器人编程/" style="font-size: 15px;">机器人编程</a> <a href="/tags/模型驱动测试-测试/" style="font-size: 10px;">模型驱动测试 测试</a> <a href="/tags/算法-BFS/" style="font-size: 10px;">算法 BFS</a> <a href="/tags/线程-Java/" style="font-size: 10px;">线程 Java</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 开普勒鑫球<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
